@@ -140,8 +140,9 @@ body{
 	display:inline-block;
 	padding: 10px;
 	color: #000;
-	/*width:150px;
+	width:100px;
 	height:50px;
+	/*
 	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
 	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
 	box-shadow: 0 1px 2px rgba(0,0,0,.2);
@@ -164,6 +165,6 @@ body{
 }
 .semester .classes .class .group-icons{
 	padding:2px;
-	background:#F00;
-	/*border-radius:5px; */
+	background:#FFF;
+	border-radius:5px;
 }
