@@ -1,0 +1,170 @@
+body{
+	background:url('http://subtlepatterns.com/patterns/debut_light_@2X.png');
+	padding-top:50px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+#logo{
+	padding-top: 10px;
+	padding-left: 10px;
+	margin: 0px;
+}
+#titlebar{
+	background:#002469;
+	/*url('http://subtlepatterns.com/patterns/escheresque_ste.png');*/
+	color:#FFF;
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:50px;
+}
+#titlebar #user{
+	position:absolute;
+	right:0px;
+	line-height:50px;
+	top:0px;
+	padding:0px 10px;
+	color:#FFF;
+	text-decoration:none;
+}
+
+#requirements{
+	float:right;
+	width:300px;
+}
+
+#schedule{
+	background:#FFF;
+	min-height:500px;
+	margin-right:310px;
+}
+.biggroup{
+	padding:10px;
+	margin-bottom:10px;
+	background:rgba(94, 96, 98, 0.5);
+	border-radius:5px;
+	font-size: 12px;
+}
+.biggroup h2{
+	padding:3px;
+	margin:0px 0px 10px 0px;
+	color:#FFF;
+	position:relative;
+	font-size: 14px;
+}
+.progressbar{
+	display:block;
+	height:12px;
+	border:solid 1px #CCC;
+}
+.progressbar .progress{
+	display:block;
+	height:12px;
+}
+.group-icon{
+	width:10px;
+	height:10px;
+	display:inline-block;
+	border-radius:5px;
+}
+
+.group1{background-color:#ff4c00;}
+.group2{background-color:#ff9640;}
+.group3{background-color:#ffdd40;}
+.group4{background-color:#9ff33d;}
+.group5{background-color:#3f92d2;}
+.group6{background-color:#0e53a7;}
+
+.group{
+	padding:10px;
+	background:#FFF;
+	border-radius:5px;
+	margin-bottom:10px;
+}
+.group.collapsed .satisfiers{
+	display:none;
+}
+.group:last{
+	margin-bottom:0px;
+}
+
+.group h3{
+	position:relative;
+	padding:0px;
+	margin:0px;
+}
+.expander{
+	width:30px;
+	height:30px;
+	background:url('icons.png') #999;
+	background-position:-33px 0px;
+	border-radius:15px;
+	display:inline-block;
+	position:absolute;
+	right:40px;
+	top:0px;
+}
+.collapsed .expander{
+	background-position:0px 0px;
+}
+.completion{
+	width:30px;
+	height:30px;
+	background:#F66;
+	border-radius:15px;
+	display:inline-block;
+	position:absolute;
+	right:0px;
+	top:0px;
+}
+.satisfiers:before{
+	content:"Satified By:";
+}
+.satisfiers ul{
+	display:inline;
+	padding:0px;
+	margin:0px;
+}
+.satisfiers li{
+	display:inline-block;
+}
+.semester{
+	border-bottom:dashed 1px #000;
+	padding:10px;
+}
+.semester .classes{
+	padding:0px;
+	margin:0px;
+}
+.semester .classes .class{
+	display:inline-block;
+	padding: 10px;
+	color: #000;
+	/*width:150px;
+	height:50px;
+	
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	color: #fef4e9;
+	border: solid 1px #da7c0c;
+	background: #d4d4d4;
+	background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
+	background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+	*/
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	/*background:#d4d4d4;*/
+	border-radius:10px;
+	margin:5px;
+}
+.semester .classes .class .group-icons{
+	padding:2px;
+	background:#FFF;
+	border-radius:5px;
+}

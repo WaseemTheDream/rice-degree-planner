@@ -1,0 +1,190 @@
+<html>
+<head>
+	<title>Degree Planner</title>
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript" src="jquery-ui.js"></script>
+	<script type="text/javascript" src="fancybox/jquery.fancybox.js"></script>
+	<link rel="stylesheet" href="fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="main.css" type="text/css" media="screen" />
+	<script type="text/javascript">
+		$(function() {
+			$(".classes").append('<a href="AddClass.html" data-fancybox-type="iframe" class="fancybox">+ Add Class</a>');
+			$(".fancybox").fancybox();
+		});
+	</script>
+</head>
+<body>
+	<div id="titlebar">
+		<h1 id="logo">Degree Planner</h1>
+		<a id="user" href="EditProfile.html" class="fancybox" data-fancybox-type="iframe">
+			Caleb Solano
+		</a>
+	</div>
+	<div id="requirements">
+		<div class="biggroup">
+			<h2>University Requirements</h2>
+			<div class="group">
+				<h3>Distribution I</h3>
+				<div class="progressbar">
+					<span class="progress group1" style="width:25%"></span>
+				</div>
+				<div class="satified-by">
+					<ul>
+						<li>PHIL 103</li>
+					</ul>
+				</div>
+			</div>
+			<div class="group">
+				<h3>Distribution II</h3>
+				<div class="progressbar">
+					<span class="progress group2" style="width:25%"></span>
+				</div>
+				<div class="satified-by">
+					<ul>
+						<li>ECON 201</li>
+					</ul>
+				</div>
+			</div>
+			<div class="group">
+				<h3>Distribution III</h3>
+				<div class="progressbar">
+					<span class="progress group3" style="width:100%"></span>
+				</div>
+				<div class="satified-by">
+					<ul>
+						<li>COMP 140</li>
+						<li>COMP 215</li>
+						<li>COMP 322</li>
+						<li>COMP 221</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="biggroup">
+			<h2>Computer Science Degree Requirements</h2>
+			<div class="group">
+				<h3>Math</h3>
+				<div class="progressbar">
+					<span class="progress group4" style="width:50%"></span>
+				</div>
+				<div class="satified-by">
+					<ul>
+						<li>CALC 101</li>
+						<li>CALC 102</li>
+					</ul>
+				</div>
+			</div>
+			<div class="group">
+				<h3>Theory</h3>
+				<div class="progressbar">
+					<span class="progress group5" style="width:5%"></span>
+				</div>
+				<div class="satified-by">
+					<ul>
+					</ul>
+				</div>
+			</div>
+			<div class="group">
+				<h3>Parallel Programming</h3>
+				<div class="progressbar">
+					<span class="progress group6" style="width:75%"></span>
+				</div>
+				<div class="satified-by">
+					<ul>
+						<li>COMP 322</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="schedule">
+	<div class="semester">
+		<h2>Transfer Credit</h2>
+		<div class="classes">
+			<div class="class">
+				PSYC 101
+				<div class="group-icons">
+					<span class="group-icon group2"></span>
+				</div>
+			</div>
+			<div class="class">
+				CALC 101
+				<div class="group-icons">
+					<span class="group-icon group3"></span>
+					<span class="group-icon group4"></span>
+				</div>
+			</div>
+			<div class="class">
+				CALC 102
+				<div class="group-icons">
+					<span class="group-icon group3"></span>
+					<span class="group-icon group4"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="semester">
+		<h2>Fall 2010</h2>
+		<div class="classes">
+			<div class="class">
+				COMP 140
+				<div class="group-icons">
+					<span class="group-icon group3"></span>
+				</div>
+			</div>
+			<div class="class">
+				COMP 215
+				<div class="group-icons">
+					<span class="group-icon group3"></span>
+				</div>
+			</div>
+			<div class="class">
+				PHIL 103
+				<div class="group-icons">
+					<span class="group-icon group1"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="semester">
+		<h2>Spring 2011</h2>
+		<div class="classes">
+			<div class="class">
+				COMP 322
+				<div class="group-icons">
+					<span class="group-icon group3"></span>
+					<span class="group-icon group6"></span>
+				</div>
+			</div>
+			<div class="class">
+				COMP 221
+				<div class="group-icons">
+					<span class="group-icon group3"></span>
+				</div>
+			</div>
+			<div class="class">
+				ECON 201
+				<div class="group-icons">
+					<span class="group-icon group2"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="semester">
+		<h2>Fall 2011</h2>
+		<div class="classes">
+		</div>
+	</div>
+	<div class="semester">
+		<h2>Spring 2012</h2>
+		<div class="classes">
+		</div>
+	</div>
+	<div class="semester">
+		<a href="#">+Add Semester</a>
+	</div>
+	</div>
+	<div id="popup">
+	</div>
+</body>
+</html>
