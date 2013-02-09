@@ -14,22 +14,37 @@ def get_user(net_id, create=False):
         user = User(net_id=net_id).put()
     return user
 
+class Term(db.Model):
+    code = db.StringProperty(required=True) # E.g. 201320
+    description = db.StringProperty()       # E.g. Spring 2013
+
+class Department(db.Model):
+    name = db.StringProperty(required=True,
+                             indexed=True)
+
+def get_department(name, create=False):
+    department = Department.gql('WHERE name=:1', name).get()
+    if not department and create:
+        department = Department(name=name)
+        department.put()
+    return department
+
+class Subject(db.Model):
+    code = db.StringProperty(required=True,    # E.g. COMP
+                             indexed=True)
+
+def get_subject(code, create=False):
+    subject = Subject.gql('WHERE code=:1', code).get()
+    if not subject and create:
+        subject = Subject(code=code)
+        subject.put()
+    return subject
+
 class Course(db.Model):
     subject = db.ReferenceProperty(Subject,
                                    required=True,
                                    collection_name='courses')
     number = db.StringProperty(required=True)     # E.g. 182
     terms = db.ListProperty(db.Key)      # List of terms its been taught
-    description = db.TextProperty()
     xlink = db.StringProperty()
     credit_hours = db.IntegerProperty(required=True)
-
-class Term(db.Model):
-    code = db.StringProperty(required=True) # E.g. 201320
-    description = db.StringProperty()       # E.g. Spring 2013
-
-class Department(db.Model):
-    name = db.StringProperty(required=True)
-
-class Subject(db.Model):
-    code = db.StringProperty(required=True)     # E.g. COMP
