@@ -166,7 +166,7 @@ body{
 }
 .semester .classes .class .group-icons{
 	position: absolute;
-	top: 2px;
+	bottom: 2px;
 	vertical-align: middle;
 	height:15px;
 	/*padding:2px;*/
