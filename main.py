@@ -33,6 +33,10 @@ class MainHandler(webapp2.RequestHandler):
         page = self.request.path
         if page == '/':
             page = 'main'
+        if page.startswith('/'):
+            page = page[1:]
+        if page.endswith('.html'):
+            page = page[:-5]
         logging.info(page)
         template = JINJA_ENV.get_template('/views/%s.html' % page)
         self.response.out.write(template.render())
