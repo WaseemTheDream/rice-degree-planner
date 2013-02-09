@@ -166,11 +166,8 @@ body{
 	margin:5px;
 }
 .semester .classes .class .group-icons{
-	position: relative;
-	top: 2px;
 	vertical-align: middle;
-	height:15px;
-	/*padding:2px;*/
+	padding: 2px;
 	background:#FFF;
 	border-radius:5px;
 }
