@@ -48,3 +48,9 @@ class Course(db.Model):
     terms = db.ListProperty(db.Key)      # List of terms its been taught
     xlink = db.StringProperty()
     credit_hours = db.IntegerProperty(required=True)
+
+class CourseTaken(db.Model):
+    user = db.ReferenceProperty(User, required=True ,
+                                collection_name='courses_taken')
+    course = db.ReferenceProperty(Course,required=True)
+    term = db.ReferenceProperty(Term,required=True)
