@@ -16,7 +16,7 @@ handlers:
   script: authentication.auth.app
 
 - url: .*
-  script: main.app
+  script: controllers.main_controller.app
 
 libraries:
 - name: webapp2
