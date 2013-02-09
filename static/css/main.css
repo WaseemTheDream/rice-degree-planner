@@ -164,6 +164,7 @@ body{
 }
 .semester .classes .class .group-icons{
 	padding-left:2px;
+	padding-top: 2px;
 	background:#F00;
 	border-radius:5px;
 }
