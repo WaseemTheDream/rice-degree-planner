@@ -30,7 +30,11 @@ JINJA_ENV = jinja2.Environment(
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        template = JINJA_ENV.get_template('/views/main.html')
+        page = self.request.path
+        if page == '/':
+            page = 'main'
+        logging.info(page)
+        template = JINJA_ENV.get_template('/views/%s.html' % page)
         self.response.out.write(template.render())
 
 app = webapp2.WSGIApplication([
