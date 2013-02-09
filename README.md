@@ -1,4 +1,4 @@
-rice-stickies
+rice-degree-planner
 =============
 
-A simple web app for creating personal sticky notes. Used for a crash course for Hack Rice 2013.
+Hack Rice 2013: Degree Planner
