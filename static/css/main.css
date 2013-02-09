@@ -164,7 +164,8 @@ body{
 	margin:5px;
 }
 .semester .classes .class .group-icons{
-	height:10px;
+	height:15px;
+	vertical-align: middle;
 	padding:2px;
 	background:#FFF;
 	border-radius:5px;
