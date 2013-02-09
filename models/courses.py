@@ -7,12 +7,19 @@ import json
 import webapp2
 import models
 
+MAX_STRING = u"\ufffd"
 
 class CoursesHandler(webapp2.RequestHandler):
 
     def get(self):
+        query_string = self.request.get('query')
+        if not query_string:
+            self.response.out.write('No query provided')
+            return
+        
         subject_code = self.request.get('subject')
         course_number = self.request.get('number')
+        db.GqlQuery("SELECT * FROM MyModel WHERE prop >= :1 AND prop < :2", "abc", u"abc" + )
         subject = models.Subject.gql('WHERE code=:1', subject_code).get()
         if not subject:
             logging.error('Subject not found')

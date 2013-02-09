@@ -8,19 +8,35 @@ from google.appengine.ext.db import polymodel
 class User(db.Model):
     net_id = db.StringProperty(required=True)
 
-def get_user(net_id, create=False):
-    user = User.gql('WHERE net_id=:1', net_id).get()
-    if not user and create:
-        user = User(net_id=net_id).put()
-    return user
 
 class Term(db.Model):
     code = db.StringProperty(required=True) # E.g. 201320
     description = db.StringProperty()       # E.g. Spring 2013
 
+
 class Department(db.Model):
     name = db.StringProperty(required=True,
+
                              indexed=True)
+class Subject(db.Model):
+    code = db.StringProperty(required=True,    # E.g. COMP
+
+                             indexed=True)
+class Course(db.Model):
+    subject = db.ReferenceProperty(Subject,
+                                   required=True,
+                                   collection_name='courses')
+    number = db.StringProperty(required=True)     # E.g. 182
+    terms = db.ListProperty(db.Key)      # List of terms its been taught
+    xlink = db.StringProperty()
+    credit_hours = db.IntegerProperty(required=True)
+
+
+def get_user(net_id, create=False):
+    user = User.gql('WHERE net_id=:1', net_id).get()
+    if not user and create:
+        user = User(net_id=net_id).put()
+    return user
 
 def get_department(name, create=False):
     department = Department.gql('WHERE name=:1', name).get()
@@ -29,9 +45,6 @@ def get_department(name, create=False):
         department.put()
     return department
 
-class Subject(db.Model):
-    code = db.StringProperty(required=True,    # E.g. COMP
-                             indexed=True)
 
 def get_subject(code, create=False):
     subject = Subject.gql('WHERE code=:1', code).get()
