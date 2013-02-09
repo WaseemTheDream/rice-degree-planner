@@ -46,7 +46,7 @@ def get_user(net_id, create=False):
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        template = JINJA_ENV.get_template('main.html')
+        template = JINJA_ENV.get_template('/views/main.html')
         self.response.out.write(template.render())
 
 class StickyNotesHandler(webapp2.RequestHandler):
@@ -66,7 +66,7 @@ class StickyNotesHandler(webapp2.RequestHandler):
 
 
         page_data = {'stickies': stickies_data}
-        template = JINJA_ENV.get_template('stickies.html')
+        template = JINJA_ENV.get_template('/views/stickies.html')
         self.response.out.write(template.render(page_data))
 
     def post(self):
