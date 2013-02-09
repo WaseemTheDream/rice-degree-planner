@@ -11,11 +11,13 @@ xmlFile = opener.open(springURL)
 tree = etree.parse(xmlFile)
 
 courses = tree.findall('//course')
+KVPairs = []
 
 for c in courses:
 	# Get a key-value set of tag to text for each course
 	data = (dict(zip([x.tag for x in c.getchildren()],
 					 [x.text for x in c.getchildren()])))
+	KVPairs.append(data)
 
 
 
