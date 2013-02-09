@@ -15,7 +15,9 @@ def get_user(net_id, create=False):
     return user
 
 class Course(db.Model):
-    subject = db.ReferenceProperty(Subject, required=True)
+    subject = db.ReferenceProperty(Subject,
+                                   required=True,
+                                   collection_name='courses')
     number = db.StringProperty(required=True)     # E.g. 182
     term = db.ListProperty(db.Key)      # List of terms its been taught
     description = db.TextProperty()

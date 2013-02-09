@@ -1,35 +1,38 @@
+"""
+Processes raw courses data into the datastore.
+"""
 
+from models import models
 
 from xml.etree import ElementTree as etree
-import urllib
-
-springURL = "http://courses.rice.edu/admweb/!SWKSECX.main?term=201320&title=&course=&crn=&coll=&dept=&subj="
-fallURL = "http://courses.rice.edu/admweb/!SWKSECX.main?term=201310&title=&course=&crn=&coll=&dept=&subj="
-
-opener = urllib.FancyURLopener({})
-xmlFile = opener.open(springURL)
-tree = etree.parse(xmlFile)
-
-courses = tree.findall('//course')
-KVPairs = []
-
-for c in courses:
-	# Get a key-value set of tag to text for each course
-	data = (dict(zip([x.tag for x in c.getchildren()],
-					 [x.text for x in c.getchildren()])))
-	KVPairs.append(data)
 
 
+def process_xml(xml):
+    """
+    Processes the specified xml file to load courses into the datastore.
+    """
 
+    tree = etree.parse(xml)
 
+    courses = tree.findall('//course')
 
-opener = urllib.FancyURLopener({})
-xmlFile = opener.open(fallURL)
-tree = etree.parse(xmlFile)
+    for course in courses:
+        # Get a key-value set of tag to text for each course
+        data = (dict(zip([x.tag for x in course.getchildren()],
+                         [x.text for x in course.getchildren()])))
+        
+        process_course(data)
 
-courses = tree.findall('//course')
+def process_course(data):
+    """
+    Processes a given data dictionary of a course into the datastore.
+    """
 
-for c in courses:
-	# Get a key-value set of tag to text for each course
-	data = (dict(zip([x.tag for x in c.getchildren()],
-					 [x.text for x in c.getchildren()])))
+    # Get the term of the course
+    term_code = data['term-code']
+    term = models.Term('WHERE code=:1', term_code).get()
+    if not term:        # Create term if it doesn't exist
+        term = models.Term(code=term_code, description=data['term-description'])
+        term.put()
+
+    
