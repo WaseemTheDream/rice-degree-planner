@@ -19,7 +19,7 @@ class Course(db.Model):
                                    required=True,
                                    collection_name='courses')
     number = db.StringProperty(required=True)     # E.g. 182
-    term = db.ListProperty(db.Key)      # List of terms its been taught
+    terms = db.ListProperty(db.Key)      # List of terms its been taught
     description = db.TextProperty()
     xlink = db.StringProperty()
     credit_hours = db.IntegerProperty(required=True)
