@@ -1,73 +1,190 @@
-<!DOCTYPE html>
-<!-- saved from url=(0066)http://twitter.github.com/bootstrap/examples/starter-template.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <title>Sticky Notes - Rice</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <!-- Le styles -->
-    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
-    <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
-    </style>
-    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="/static/css/stylesheet.css" rel="stylesheet">
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="http://twitter.github.com/bootstrap/assets/ico/favicon.png">
-  </head>
-
-  <body>
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="/main.html">Sticky Notes - Rice</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <!-- <li class="active"><a href="http://twitter.github.com/bootstrap/examples/starter-template.html#">Home</a></li> -->
-              <!-- <li><a href="http://twitter.github.com/bootstrap/examples/starter-template.html#about">About</a></li> -->
-              <!-- <li><a href="http://twitter.github.com/bootstrap/examples/starter-template.html#contact">Contact</a></li> -->
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
-
-    <div class="container-narrow">
-      <div class='wow'>
-        <div class="jumbotron">
-          <h1>Welcome!</h1>
-          <div class="lead">Here, you can write sticky notes to yourself!</div>
-          <a class="btn btn-large btn-success" href="/stickies">Sign In</a>
-        </div>
-      </div>
-
-
-    </div> <!-- /container -->
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  
-
-<div id="window-resizer-tooltip" style="display: block;"><a href="http://twitter.github.com/bootstrap/examples/starter-template.html#" title="Edit settings" style="background-image: url(chrome-extension://kkelicaakdanhinjdeammmilcgefonfh/images/icon_19.png);"></a><span class="tooltipTitle">Window size: </span><span class="tooltipWidth" id="winWidth">1247</span> x <span class="tooltipHeight" id="winHeight">675</span><br><span class="tooltipTitle">Viewport size: </span><span class="tooltipWidth" id="vpWidth">1247</span> x <span class="tooltipHeight" id="vpHeight">536</span></div></body></html>
+<html>
+<head>
+	<title>Degree Planner</title>
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript" src="jquery-ui.js"></script>
+	<script type="text/javascript" src="fancybox/jquery.fancybox.js"></script>
+	<link rel="stylesheet" href="fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="main.css" type="text/css" media="screen" />
+	<script type="text/javascript">
+		$(function() {
+			$(".classes").append('<a href="AddClass.html" data-fancybox-type="iframe" class="fancybox">+ Add Class</a>');
+			$(".fancybox").fancybox();
+		});
+	</script>
+</head>
+<body>
+	<div id="titlebar">
+		<h1 id="logo">Degree Planner</h1>
+		<a id="user" href="EditProfile.html" class="fancybox" data-fancybox-type="iframe">
+			Caleb Solano
+		</a>
+	</div>
+	<div id="requirements">
+		<div class="biggroup">
+			<h2>University Requirements</h2>
+			<div class="group">
+				<h3>Distribution I</h3>
+				<div class="progressbar">
+					<span class="progress group1" style="width:25%"></span>
+				</div>
+				<div class="satified-by">
+					<ul>
+						<li>PHIL 103</li>
+					</ul>
+				</div>
+			</div>
+			<div class="group">
+				<h3>Distribution II</h3>
+				<div class="progressbar">
+					<span class="progress group2" style="width:25%"></span>
+				</div>
+				<div class="satified-by">
+					<ul>
+						<li>ECON 201</li>
+					</ul>
+				</div>
+			</div>
+			<div class="group">
+				<h3>Distribution III</h3>
+				<div class="progressbar">
+					<span class="progress group3" style="width:100%"></span>
+				</div>
+				<div class="satified-by">
+					<ul>
+						<li>COMP 140</li>
+						<li>COMP 215</li>
+						<li>COMP 322</li>
+						<li>COMP 221</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="biggroup">
+			<h2>Computer Science Degree Requirements</h2>
+			<div class="group">
+				<h3>Math</h3>
+				<div class="progressbar">
+					<span class="progress group4" style="width:50%"></span>
+				</div>
+				<div class="satified-by">
+					<ul>
+						<li>CALC 101</li>
+						<li>CALC 102</li>
+					</ul>
+				</div>
+			</div>
+			<div class="group">
+				<h3>Theory</h3>
+				<div class="progressbar">
+					<span class="progress group5" style="width:5%"></span>
+				</div>
+				<div class="satified-by">
+					<ul>
+					</ul>
+				</div>
+			</div>
+			<div class="group">
+				<h3>Parallel Programming</h3>
+				<div class="progressbar">
+					<span class="progress group6" style="width:75%"></span>
+				</div>
+				<div class="satified-by">
+					<ul>
+						<li>COMP 322</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="schedule">
+	<div class="semester">
+		<h2>Transfer Credit</h2>
+		<div class="classes">
+			<div class="class">
+				PSYC 101
+				<div class="group-icons">
+					<span class="group-icon group2"></span>
+				</div>
+			</div>
+			<div class="class">
+				CALC 101
+				<div class="group-icons">
+					<span class="group-icon group3"></span>
+					<span class="group-icon group4"></span>
+				</div>
+			</div>
+			<div class="class">
+				CALC 102
+				<div class="group-icons">
+					<span class="group-icon group3"></span>
+					<span class="group-icon group4"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="semester">
+		<h2>Fall 2010</h2>
+		<div class="classes">
+			<div class="class">
+				COMP 140
+				<div class="group-icons">
+					<span class="group-icon group3"></span>
+				</div>
+			</div>
+			<div class="class">
+				COMP 215
+				<div class="group-icons">
+					<span class="group-icon group3"></span>
+				</div>
+			</div>
+			<div class="class">
+				PHIL 103
+				<div class="group-icons">
+					<span class="group-icon group1"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="semester">
+		<h2>Spring 2011</h2>
+		<div class="classes">
+			<div class="class">
+				COMP 322
+				<div class="group-icons">
+					<span class="group-icon group3"></span>
+					<span class="group-icon group6"></span>
+				</div>
+			</div>
+			<div class="class">
+				COMP 221
+				<div class="group-icons">
+					<span class="group-icon group3"></span>
+				</div>
+			</div>
+			<div class="class">
+				ECON 201
+				<div class="group-icons">
+					<span class="group-icon group2"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="semester">
+		<h2>Fall 2011</h2>
+		<div class="classes">
+		</div>
+	</div>
+	<div class="semester">
+		<h2>Spring 2012</h2>
+		<div class="classes">
+		</div>
+	</div>
+	<div class="semester">
+		<a href="#">+Add Semester</a>
+	</div>
+	</div>
+	<div id="popup">
+	</div>
+</body>
+</html>
