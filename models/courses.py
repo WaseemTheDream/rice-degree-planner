@@ -19,7 +19,7 @@ class CoursesHandler(webapp2.RequestHandler):
         
         subject_code = self.request.get('subject')
         course_number = self.request.get('number')
-        db.GqlQuery("SELECT * FROM MyModel WHERE prop >= :1 AND prop < :2", "abc", u"abc" + )
+        # db.GqlQuery("SELECT * FROM MyModel WHERE prop >= :1 AND prop < :2", "abc", u"abc" + MAX_STRING)
         subject = models.Subject.gql('WHERE code=:1', subject_code).get()
         if not subject:
             logging.error('Subject not found')
