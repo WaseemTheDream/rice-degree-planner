@@ -46,9 +46,16 @@ class MainHandler(webapp2.RequestHandler):
         template = JINJA_ENV.get_template('/views/%s.html' % page)
         page_data = {}
         page_data['net_id'] = user.net_id
-        page_data['terms'] = []     
-        terms = models.Term.gql('LIMIT 10')
-        for term in terms:
+        page_data['terms'] = []
+        requiredTerm = models.Term.gql('WHERE code=:1', '201310').get()
+        #if requiredTerm.key() not in user.terms:
+        #    user.terms.append(requiredTerm.key())
+        #    user.put()
+        for termKey in user.terms:
+       	    term = models.Term.get(termKey)
+			
+			
+			
             thisTerm = {
                 'code': term.code,
                 'description':term.description

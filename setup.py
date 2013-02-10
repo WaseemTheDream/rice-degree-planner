@@ -13,6 +13,9 @@ from models import models
 from tasks import course_processor
 
 def main():
+    term = models.Term(code='TRANSFER', description='Transfer Credit')
+    term.put()
+
     course_processor.process_xml('courses_data/fall12.xml')
     course_processor.process_xml('courses_data/spring13.xml')
 
@@ -30,8 +33,6 @@ def add_comp_sci_major():
         name='Advanced calculus',
         options=advanced_calculus,
         num_required=1)
-
-
 
 if __name__ == '__main__':
     main()
