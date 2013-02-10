@@ -64,7 +64,7 @@ class Requirement(polymodel.PolyModel):
         raise NotImplementedError('Abstract function')
 
 
-class RequirementFromCourses(Requirement):
+class RequirementsFromCourses(Requirement):
     _options = db.ListProperty(db.Key)
     _num_required = db.IntegerProperty(required=True)
 
@@ -77,7 +77,7 @@ class RequirementFromCourses(Requirement):
             options {List<Course>}: list of options
             num_required {Integer}: number of courses required
         """
-        super(RequirementFromCourses, self).__init__(name=name, _num_required=num_required)
+        super(RequirementsFromCourses, self).__init__(name=name, _num_required=num_required)
         assert(num_required < len(options))
         self._options = []
         for course in options:
@@ -105,6 +105,36 @@ class RequirementFromCourses(Requirement):
             'credits_taken': credits_taken,
             'courses_matching': courses_matching
         }
+
+class RequirementsFromCoursesRange(Requirement):
+    _subject_options = db.ListProperty(db.Key)
+    _num_required = db.IntegerProperty(required=True)
+    _lower_range = db.IntegerProperty(required=True)
+    _upper_range = db.IntegerProperty(required=True)
+
+    def __init__(
+        self, 
+        name, 
+        subject_options, 
+        num_required, 
+        lower_range, 
+        upper_range):
+        """
+        Constructor.
+
+        Args:
+            name {String}: the name of the requirement
+            subject_options {List<Subject>}: list of possible subject_options
+            num_required {Integer}: the number of courses you have to take
+            lower_range {Integer}: the lower range of the requirement e.g. 150
+            upper_range {Integer}: the upper range of the requirement e.g. 300
+        """
+        super(RequirementsFromCoursesRange, this).__init__(
+            name=name,
+            _num_required=num_required,
+            _lower_range=lower_range,
+            _upper_range=upper_range)
+        return None
 
 def get_user(net_id, create=False):
     user = User.gql('WHERE net_id=:1', net_id).get()

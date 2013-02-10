@@ -40,7 +40,7 @@ def main():
         if course:
             options.append(course)
 
-    fcam_requirements = models.RequirementFromCourses(
+    fcam_requirements = models.RequirementsFromCourses(
         name='FCAM Requirements',
         options=options,
         num_required=4)
