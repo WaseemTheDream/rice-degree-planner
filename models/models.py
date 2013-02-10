@@ -138,7 +138,22 @@ class RequirementsFromCoursesRange(Requirement):
         for subject in subject_options:
             self._subject_options.append(subject.key())
 
-    
+    def progress(self, courses_taken):
+        # Load up the courses and get their credit values
+        credits_list = []
+        min_credits_required = 3 * self._num_required
+        max_credits_required = 4 * self._num_required
+        courses_matching = []       # Courses taken that fulfill this requirement
+        for course in courses_taken:
+            if course.subject.key() in self._subject_options:
+                courses_matching.append(course)
+        credits_taken = sum([course.credit_hours for course in courses_matching])
+        return {
+            'max_credits_required': max_credits_required,
+            'min_credits_required': min_credits_required,
+            'credits_taken': credits_taken,
+            'courses_matching': courses_matching
+        }
 
 def get_user(net_id, create=False):
 	user = User.gql('WHERE net_id=:1', net_id).get()
