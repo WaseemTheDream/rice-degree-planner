@@ -142,6 +142,26 @@ class CourseRangeRequirement(Requirement):
         }
 
 
+class DistributionRequirement(db.Model):
+    distribution = db.ReferenceProperty(DistributionGroup,
+                                        required=True)
+    credits_required = db.IntegerProperty(required=True)
+
+    def progress(self, courses_taken):
+        credits_taken = 0
+        courses_matching = []
+        for course in courses_taken:
+            if course.distribution.key() == self.distribution.key():
+                credits_taken += course.credits
+                courses_matching.append(course)
+        return {
+            'name': self.name,
+            'max_credits_required': self.credits_required,
+            'min_credits_required': self.credits_required,
+            'credits_taken': credits_taken,
+            'courses_matching': courses_matching
+        }
+
 class RequirementGroup(db.Model):
     name = db.StringProperty(required=True)
     requirements = db.ListProperty(db.Key)
