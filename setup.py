@@ -64,6 +64,26 @@ def comp_sci_core_group():
     algorithms_requirement.load_courses(algorithms)
     algorithms_requirement.put()
 
+	
+	programming_languages = [models.get_course(course) for course in ['COMP 411', 'COMP 412']]
+	assert (None not in programming_languages)
+	programming_languages_requirement = models.RequirementsFromCourses(
+		name='Programming Languages',
+		num_required=1)
+	programming_languages_requirement.load_courses(programming_languages)
+	programming_languages_requirement.put()
+	
+	
+	cs_theory = [models.get_course(course) for course in ['COMP 481', 'COMP 482']]
+	assert (None not in cs_theory)
+	cs_theory_requirement = models.RequirementsFromCourses(
+		name='Computer Science Theory',
+		num_required=1)
+	cs_theory_requirement.load_courses(programming_languages)
+	cs_theory_requirement.put()
+		
+
+	
     core_group = models.RequirementGroup(name='CS Core')
     for req in [intro_requirement, algorithms_requirement]:
         core_group.requirements.append(req.key())
