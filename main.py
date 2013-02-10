@@ -44,7 +44,7 @@ class MainHandler(webapp2.RequestHandler):
 
 class AddCourseHandler(webapp2.RequestHandler):
     def post(self):
-        session get_current_session()
+        session = get_current_session()
         
         # Uncomment when we have the login page working
         # if not session.has_key('net_id'):
