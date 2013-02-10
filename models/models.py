@@ -5,14 +5,13 @@ Database storage for the app.
 from google.appengine.ext import db
 from google.appengine.ext.db import polymodel
 
-class User(db.Model):
-    net_id = db.StringProperty(required=True)
-
-
 class Term(db.Model):
     code = db.StringProperty(required=True) # E.g. 201320
     description = db.StringProperty()       # E.g. Spring 2013
 
+class User(db.Model):
+	net_id = db.StringProperty(required=True)
+	terms = db.ListProperty(db.Key)
 
 class Department(db.Model):
     name = db.StringProperty(required=True,
