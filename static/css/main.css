@@ -241,6 +241,7 @@ body{
 	padding: 2px;
 	background:#FFF;
 	border-radius:5px;
+	min-height:16px;
 }
 
 .info-table{text-align:left}

@@ -30,7 +30,7 @@ function processBubbles(){
 					groupClass = groupClasses[i]
 				}
 			}
-			hours = "?";
+			hours = "&nbsp;&nbsp;&nbsp;";
 			$("#schedule .class[data-course-id=\""+courseId+"\"]").find(".group-icons").append('<span class="group-icon '+groupClass+'">'+hours+'</span>');
 		}
 	});
