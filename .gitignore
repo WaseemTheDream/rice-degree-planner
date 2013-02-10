@@ -1,2 +1,7 @@
+<<<<<<< HEAD
+=======
+.DS_Store
+*.pyc
+>>>>>>> Various CSS changes
 *.pyc
 .DS_Store

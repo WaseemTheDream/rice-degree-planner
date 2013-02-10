@@ -11,7 +11,7 @@ body{
 #titlebar{
 	background:#002469;
 	/*url('http://subtlepatterns.com/patterns/escheresque_ste.png');*/
-	color:#FFF;
+	color: rgba(94, 96, 98, .20);
 	position:fixed;
 	top:0px;
 	left:0px;
