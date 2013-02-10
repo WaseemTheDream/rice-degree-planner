@@ -85,7 +85,7 @@ def comp_sci_core_group():
         name='Introductory CS',
         num_required=1)
     intro_requirement.load_courses(intro)
-    intro_requirement.load_excluded
+    # intro_requirement.load_excluded()
     intro_requirement.put()
 
 
@@ -118,7 +118,7 @@ def comp_sci_core_group():
     assert (None not in systems)
     systems_requirement = models.CoursesRequirement(
         name='Systems',
-        name_required=1)
+        num_required = 1)
     systems_requirement.load_courses(systems)
     systems_requirement.put()
     
@@ -126,7 +126,7 @@ def comp_sci_core_group():
     assert (None not in object_programming)
     object_programming_requirement = models.CoursesRequirement(
         name='Object Oriented Programming',
-        name_required=1)
+        num_required=1)
     object_programming_requirement.load_courses(object_programming)
     object_programming_requirement.put()
     
@@ -134,7 +134,7 @@ def comp_sci_core_group():
     assert (None not in parallel)
     parallel_requirement = models.CoursesRequirement(
         name='Parallel Programming',
-        name_required=1)
+        num_required=1)
     parallel_requirement.load_courses(parallel)
     parallel_requirement.put()
     
@@ -165,7 +165,7 @@ def comp_sci_core_group():
 
 
     core_group = models.RequirementGroup(name='CS Core')
-    for req in [intro_requirement, algorithms_requirement programming_requirement hardware_requirement systems_requirement object_programming_requirement programming_languages_requirement os_requirement cs_theory_requirement]:
+    for req in [intro_requirement, algorithms_requirement, programming_requirement, hardware_requirement, systems_requirement, object_programming_requirement, programming_languages_requirement, os_requirement, cs_theory_requirement]:
         core_group.requirements.append(req.key())
     core_group.put()
     return core_group
