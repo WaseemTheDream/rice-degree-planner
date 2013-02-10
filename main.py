@@ -91,5 +91,6 @@ class AddCourseHandler(webapp2.RequestHandler):
 		self.response.out.write(json.dumps(data))
 		
 app = webapp2.WSGIApplication([
+    ('/addCourse', AddCourseHandler),
     ('/.*', MainHandler)
 ], debug=True)
