@@ -38,7 +38,7 @@ def comp_sci_math_and_science_group():
     advanced_calculus_requirement.put()
 
     probability = [models.get_course(course) for course in ['STAT 310','STAT 331']]
-	assert (None not in probability)
+    assert (None not in probability)
     probability_requirement = models.CoursesRequirement(
         name='Probability',
         num_required=1)
@@ -55,7 +55,7 @@ def comp_sci_math_and_science_group():
     
     physics1 = [models.get_course(course) for course in ['PHYS 101', 'PHYS 111','PHYS 125']]
     assert (None not in physics1)
-	physics1_requirement = models.CoursesRequirement(
+    physics1_requirement = models.CoursesRequirement(
         name='Physics Mechanics',
         num_required=1)
     physics1_requirement.load_courses(physics1)
@@ -63,14 +63,14 @@ def comp_sci_math_and_science_group():
 
     physics2 = [models.get_course(course) for course in ['PHYS 102', 'PHYS 112','PHYS 126']]
     assert (None not in physics2)
-	physics2_requirement = models.CoursesRequirement(
+    physics2_requirement = models.CoursesRequirement(
         name='Physics E+M',
         num_required=1)
     physics2_requirement.load_courses(physics2)
     physics2_requirement.put()
-	
+    
     math_and_science_group = models.RequirementGroup(name='Math and Science')
-    for req in [calculus_requirement, advanced_calculus_requirement probability_requirement linear_algebra_requirement physics1_requirement physics2_requirement]:
+    for req in [calculus_requirement, advanced_calculus_requirement, probability_requirement, linear_algebra_requirement, physics1_requirement, physics2_requirement]:
         math_and_science_group.requirements.append(req.key())
     math_and_science_group.put()
 
@@ -84,7 +84,7 @@ def comp_sci_core_group():
         name='Introductory CS',
         num_required=1)
     intro_requirement.load_courses(intro)
-	intro_requirement.load_excluded
+    intro_requirement.load_excluded
     intro_requirement.put()
 
     algorithms = [models.get_course('COMP 182')]
@@ -114,7 +114,7 @@ def comp_sci_core_group():
 
 
     core_group = models.RequirementGroup(name='CS Core')
-    for req in [intro_requirement, algorithms_requirement programming_languages_requirement cs_theory_requirement]:
+    for req in [intro_requirement, algorithms_requirement, programming_languages_requirement, cs_theory_requirement]:
         core_group.requirements.append(req.key())
     core_group.put()
     return core_group
