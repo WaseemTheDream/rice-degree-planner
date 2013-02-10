@@ -110,7 +110,7 @@ body{
 .semester{
 	border-top:dashed 1px #CCC;
 	padding:10px;
-	background:#FFF;
+	background:url('http://subtlepatterns.com/patterns/cream_dust.png');
 }
 .semester h2{
 	padding:0px;
