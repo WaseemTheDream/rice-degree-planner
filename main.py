@@ -48,7 +48,7 @@ class MainHandler(webapp2.RequestHandler):
         page_data['net_id'] = user.net_id
 
         page_data['terms'] = []
-        requiredTerm = models.Term.gql('WHERE code=:1', '201320').get()
+        requiredTerm = models.Term.gql('WHERE code=:1', 'TRANSFER').get()
         #if requiredTerm.key() not in user.terms:
         #    user.terms.append(requiredTerm.key())
         #    user.put()        
