@@ -63,7 +63,12 @@
 			<h2>{{ progress.name }} - {{ degree.name }}</h2>
 			
 			{% for group in degree.overall_progress %}
+			
+			{% if group.credits_taken > group.min_credits_required %}
+			<div class="group completed">
+			{% else %}
 			<div class="group">
+			{% endif %}
 				<h3>{{ group.name }}</h3>
 				<div class="progressbar">
 					<span class="progress group5" style="width:{{ group.credits_taken / group.min_credits_required * 100 }}%"></span>
