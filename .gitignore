@@ -1,2 +1,14 @@
 *.pyc
 .DS_Store
+<<<<<<< HEAD
+=======
+*.pyc
+
+*.pyc
+
+authentication/__init__.pyc
+
+authentication/gaesessions.pyc
+
+main.pyc
+>>>>>>> nothing
