@@ -1,6 +1,7 @@
 *.pyc
 .DS_Store
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 *.pyc
 
@@ -14,3 +15,5 @@ main.pyc
 >>>>>>> nothing
 
 main.pyc
+=======
+>>>>>>> Lots of UI changes
