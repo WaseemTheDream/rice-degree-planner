@@ -56,6 +56,7 @@ class MainHandler(webapp2.RequestHandler):
         self.response.out.write(template.render(page_data))
 
 class AddCourseHandler(webapp2.RequestHandler):
+
 	def post(self):
 		session = get_current_session()
 		if not session.has_key('net_id'):
@@ -89,3 +90,10 @@ class AddCourseHandler(webapp2.RequestHandler):
 		coursetaken.put()
 		data['id'] = str(coursetaken.key())
 		self.response.out.write(json.dumps(data))
+ 
+
+        
+
+app = webapp2.WSGIApplication([
+    ('/.*', MainHandler)
+], debug=True)
