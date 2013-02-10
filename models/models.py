@@ -30,15 +30,6 @@ class Course(db.Model):
     xlink = db.StringProperty()
     credit_hours = db.IntegerProperty(required=True)
 
-    def to_json():
-        return {
-            'id': str(self.key()),
-            'name': '%s %s' % (self.subject.code, self.number),
-            'subject': self.subject.code,
-            'number': self.number,
-            'credit_hours': self.credit_hours
-        }
-
 
 class CourseTaken(db.Model):
     user = db.ReferenceProperty(User,
@@ -97,8 +88,8 @@ class CoursesRequirement(Requirement):
         courses_matching = []       # Courses taken fulfill this requirement
         for course_taken in courses_taken:
             if course_taken.key() in self.options:
-                courses_matching.append(course_taken.to_json())
-        credits_taken = sum([course['credit_hours'] for course in courses_matching])
+                courses_matching.append(course_taken)
+        credits_taken = sum([course.credit_hours for course in courses_matching])
         return {
             'name': self.name,
             'max_credits_required': max_credits_required,
@@ -142,8 +133,8 @@ class CourseRangeRequirement(Requirement):
             if course.key() in self.excluded_courses:
                 continue
             if self.lower_range <= number and number <= self.upper_range:
-                courses_matching.append(course.to_json())
-        credits_taken = sum([course['credit_hours'] for course in courses_matching])
+                courses_matching.append(course)
+        credits_taken = sum([course.credit_hours for course in courses_matching])
         return {
             'name': self.name,
             'max_credits_required': max_credits_required,
@@ -164,7 +155,7 @@ class DistributionRequirement(db.Model):
         for course in courses_taken:
             if course.distribution.key() == self.distribution.key():
                 credits_taken += course.credits
-                courses_matching.append(course.to_json())
+                courses_matching.append(course)
         return {
             'name': self.name,
             'max_credits_required': self.credits_required,
