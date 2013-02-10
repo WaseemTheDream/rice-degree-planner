@@ -23,7 +23,7 @@ function openAddClassPopup(term){
 	$("#search").autocomplete({
 		source:"GetClasses.html",
 		select:function(event, ui){
-			$("#class_id").val(ui.item.class_id);
+			$("#class_id").val(ui.item.label);
 		}
 	}).keypress(function(event) {
 		if ( event.which == 13 && $("#class_id").val()) {
