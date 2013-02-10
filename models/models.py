@@ -29,6 +29,7 @@ class Course(db.Model):
                                    collection_name='courses')
     number = db.StringProperty(required=True)     # E.g. 182
     terms = db.ListProperty(db.Key)      # List of terms its been taught
+    distribution = db.StringProperty()
     xlink = db.StringProperty()
     credit_hours = db.IntegerProperty(required=True)
 
@@ -154,6 +155,41 @@ class RequirementsFromCoursesRange(Requirement):
             'credits_taken': credits_taken,
             'courses_matching': courses_matching
         }
+
+
+class GroupRequirement(Requirement):
+    """
+    Constructor.
+
+    Args:
+        name {String}: the name of the requirement
+        options {List<Course>}: list of options
+        reqs {reference to Requirment entities}: the requirement that compose the group
+        deg_req {reference to a single DegreeRequirement entity}: the degree this group is associated with
+    """
+    # refers to a bunch of Requirement objects
+    requirement_children = db.ListProperty(db.Key)
+
+    def __init__(self, name, reqs, deg_req):
+        super(GroupRequirement, self).__init__(name=name, 
+                                               requirement_children=reqs)
+
+    def progress_summary(self, courses_taken):
+        min_required = -10000000
+        max_required = 10000000
+        requirements = []
+        for i in requirement_children:
+            requirements.append()
+
+    pass
+
+class DegreeRequirement(Requirement):
+    requirement_groups = db.ListProperty(db.Key)
+
+
+    pass
+
+
 
 def get_user(net_id, create=False):
 	user = User.gql('WHERE net_id=:1', net_id).get()
