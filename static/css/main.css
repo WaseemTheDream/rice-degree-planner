@@ -67,7 +67,7 @@ body{
 }
 .progressbar{
 	height:12px;
-	width:80%;
+	width:85%;
 	border:solid 1px #CCC;
 	display: block;
 	position:relative;
@@ -120,7 +120,7 @@ body{
 	top:-2px;
 }
 
-.group .completed .progressbar .check{
+.group.completed .progressbar .check{
 	display:block;
 }
 
