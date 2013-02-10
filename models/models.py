@@ -79,7 +79,7 @@ class CoursesRequirement(Requirement):
         for course in options:
             credits_list.append(course.credit_hours)
         credits_list.sort()
-        print credits_list
+        #print credits_list
         min_credits_required = sum(credits_list[:self.num_required])
         max_credits_required = sum(credits_list[-self.num_required:])
         

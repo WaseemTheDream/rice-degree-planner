@@ -57,43 +57,29 @@
 				</div>
 			</div>
 		</div>
-		<div class="degree" data-degree="65123">
-			<span class="delete">X</span>
-			<h2>Computer Science Degree Requirements</h2>
+				
+		{% for degree in progress.progress_summaries %}
+		<div class="degree">
+			<h2>{{ progress.name }} - {{ degree.name }}</h2>
+			
+			{% for group in degree.overall_progress %}
 			<div class="group">
-				<h3>Math</h3>
+				<h3>{{ group.name }}</h3>
 				<div class="progressbar">
-					<span class="progress group4" style="width:50%"></span>
+					<span class="progress group5" style="width:{{ group.credits_taken / group.min_credits_required }}%"></span>
 				</div>
 				<div class="satified-by">
 					<ul>
-						<li>CALC 101</li>
-						<li>CALC 102</li>
+						{% for class in group.courses_matching %}
+						<li>Blah</li>
+						{% endfor %}
 					</ul>
 				</div>
-			</div>
-			<div class="group">
-				<h3>Theory</h3>
-				<div class="progressbar">
-					<span class="progress group5" style="width:5%"></span>
-				</div>
-				<div class="satified-by">
-					<ul>
-					</ul>
-				</div>
-			</div>
-			<div class="group">
-				<h3>Parallel Programming</h3>
-				<div class="progressbar">
-					<span class="progress group6" style="width:75%"></span>
-				</div>
-				<div class="satified-by">
-					<ul>
-						<li>COMP 322</li>
-					</ul>
-				</div>
-			</div>
+			</div>	
+			{% endfor %}
 		</div>
+		{% endfor %}
+		
 	</div>
 	<div id="schedule">
 		<div class="semester">

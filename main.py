@@ -69,6 +69,10 @@ class MainHandler(webapp2.RequestHandler):
                 })
             page_data['terms'].append(thisTerm)
         
+        degree = models.DegreeRequirement.gql('WHERE name=:1', 'Computer Science').get()
+        courses_taken = models.CourseTaken.gql('WHERE user=:1', user)
+        page_data['progress'] = degree.progress_summaries(courses_taken)
+
         self.response.out.write(template.render(page_data))
 
 class AddCourseHandler(webapp2.RequestHandler):
