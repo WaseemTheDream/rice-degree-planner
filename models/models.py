@@ -16,13 +16,11 @@ class Term(db.Model):
 
 class Department(db.Model):
     name = db.StringProperty(required=True,
-
                              indexed=True)
 
 
 class Subject(db.Model):
     code = db.StringProperty(required=True,    # E.g. COMP
-
                              indexed=True)
 
 
@@ -37,9 +35,11 @@ class Course(db.Model):
 
 
 class CourseTaken(db.Model):
-    user = db.ReferenceProperty(User, required=True ,
+    user = db.ReferenceProperty(User,
+                                required=True,
                                 collection_name='courses_taken')
-    course = db.ReferenceProperty(Course,required=True)
+    course = db.ReferenceProperty(Course,
+                                  required=True)
     term = db.ReferenceProperty(Term,required=True)
 
 
