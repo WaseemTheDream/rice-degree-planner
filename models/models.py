@@ -99,6 +99,14 @@ class CoursesRequirement(Requirement):
         }
 
 class CourseRangeRequirement(Requirement):
+    """
+    subject_options lets you specify a list of options
+        e.g. [COMP, ELEC]
+    excluded_courses don't count towards the requirement
+    any_subject ignores subject_options
+    num required is the number of courses required
+
+    """
     subject_options = db.ListProperty(db.Key)
     excluded_courses = db.ListProperty(db.Key)      # Courses that can't be used towards progress
     any_subject = db.BooleanProperty(default=False)  # If true, doesn't check for subject_options matching

@@ -123,6 +123,14 @@ def comp_sci_major():
     math_and_science_group = comp_sci_math_and_science_group()
     core_group = comp_sci_core_group()
 
+    # Set up elective requirement group 
+    elective_group = models.RequirementGroup(name='CS Electives')
+    courserange = models.CourseRangeRequirement(num_required=2, lower_range=300, upper_range=999)
+    comp = models.Subject.gql('WHERE code=:1', 'COMP').get()
+    courserange.load_subjects([comp])
+    courserange.put()
+
+    #
     major_requirement = models.DegreeRequirement(name='Computer Science')
     for grp in [math_and_science_group, core_group]:
         major_requirement.requirement_groups.append(grp.key())
