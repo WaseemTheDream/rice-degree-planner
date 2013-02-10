@@ -66,9 +66,11 @@ body{
 	font-size: 14px;
 }
 .progressbar{
-	display:block;
 	height:12px;
+	width:80%;
 	border:solid 1px #CCC;
+	display: block;
+	position:relative;
 }
 .progressbar .progress{
 	display:block;
@@ -90,6 +92,8 @@ body{
 .group5{background-color:#3f92d2;}
 .group6{background-color:#0e53a7;}
 
+
+
 .group{
 	padding:10px;
 	background:#FFF;
@@ -106,6 +110,19 @@ body{
 	margin:0px;
 }
 
+.group .progressbar .check{
+	background: url('http://png-3.findicons.com/files/icons/573/must_have/16/check.png') no-repeat;
+	width: 16px;
+	height: 16px;
+	display: none;
+	position:absolute;
+	right:-26px;
+	top:-2px;
+}
+
+.group .completed .progressbar .check{
+	display:block;
+}
 
 .semester{
 	border-top:dashed 1px #CCC;
