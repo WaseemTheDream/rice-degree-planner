@@ -67,14 +67,17 @@ body{
 }
 .progressbar{
 	height:12px;
-	width:85%;
 	border:solid 1px #CCC;
 	display: block;
 	position:relative;
 }
+.completed .progressbar{
+	width:90%;
+}
 .progressbar .progress{
 	display:block;
 	height:12px;
+	max-width:100%;
 }
 .group-icon{
 	display:inline-block;

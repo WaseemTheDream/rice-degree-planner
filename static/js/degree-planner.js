@@ -18,30 +18,29 @@ function openAddClassPopup(term){
 	$html = '<div id="add-class-popup"><span class="popup-title">Enter Class Name</span><div id="search-container"><input type="text" name="search" id="search" /><input type="hidden" name="class_id" id="class_id" /><div class="note">Ex: COMP 140, PHIL 103, CAAM 335...</div></div><button id="submit-add-class" class="button">Add Class</button></div>';
 	$.fancybox($html);
 	$("#submit-add-class").click(function(){
-		submitAddClass($("#class_id").val(), term);
+		submitAddClass($("#search").val(), term);
 	});
-	$("#search").autocomplete({
-		source:"GetClasses.html",
-		select:function(event, ui){
-			$("#class_id").val(ui.item.label);
-		}
-	}).keypress(function(event) {
-		if ( event.which == 13 && $("#class_id").val()) {
-			submitAddClass($("#class_id").val(), term);
-		}else{
-			$("#class_id").val("");
+	$("#search").keypress(function(event) {
+		if ( event.which == 13) {
+			submitAddClass($("#search").val(), term);
 		}
    });
 }
 
 function submitAddClass(course, term){
-	if(!$("#class_id").val()){
+	if(!$("#search").val()){
 		$("#search").css("border-color","#F33");
 		$("#search-container").effect("shake", { times:2, distance:5 }, 500);
 	}else{
 		data = {'term': term, 'course': course};
-		$.post("/addCourse", {'json': JSON.stringify(data)});
-		$.fancybox.close();
+		$.post("/addCourse", {'json': JSON.stringify(data)}, function(data){
+			if(data['id'] === undefined){
+				$("#search-container").effect("shake", { times:2, distance:5 }, 500);
+			}else{
+				$.fancybox.close();
+			}
+		});
+		
 	}
 }
 

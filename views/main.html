@@ -43,8 +43,7 @@
 				<h3>Distribution III</h3>
 				<div class="progressbar">
 					<div class="progress group3" style="width:100%"></div>
-					<div class="check">
-					</div>
+					<div class="check"></div>
 				</div>
 				
 				<div class="satified-by">
@@ -57,30 +56,32 @@
 				</div>
 			</div>
 		</div>
-				
+		
+		{% set groupIndex = 1 %}		
 		{% for degree in progress.progress_summaries %}
 		<div class="degree">
 			<h2>{{ progress.name }} - {{ degree.name }}</h2>
-			
-			{% for group in degree.overall_progress %}
-			
-			{% if group.credits_taken > group.min_credits_required %}
-			<div class="group completed">
-			{% else %}
-			<div class="group">
-			{% endif %}
-				<h3>{{ group.name }}</h3>
-				<div class="progressbar">
-					<span class="progress group5" style="width:{{ group.credits_taken / group.min_credits_required * 100 }}%"></span>
-				</div>
-				<div class="satified-by">
-					<ul>
-						{% for class in group.courses_matching %}
-						<li>{{class.subject.code}} {{ class.number }}</li>
-						{% endfor %}
-					</ul>
-				</div>
-			</div>	
+			{% for group in degree.overall_progress %}			
+				{% if group.credits_taken >= group.min_credits_required %}
+				<div class="group completed">
+				{% else %}
+				<div class="group">
+				{% endif %}
+					<h3>{{ group.name }}</h3>
+					<div class="progressbar">
+						<span class="progress group{{ groupIndex }}" style="width:{{ group.credits_taken / group.min_credits_required * 100 }}%"></span>
+						<div class="check"></div>
+					</div>
+					
+					<div class="satified-by">
+						<ul>
+							{% for class in group.courses_matching %}
+							<li>{{class.subject.code}} {{ class.number }}</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>	
+				{% set groupIndex = groupIndex + 1 %}
 			{% endfor %}
 		</div>
 		{% endfor %}
