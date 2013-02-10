@@ -18,10 +18,14 @@ class Department(db.Model):
     name = db.StringProperty(required=True,
 
                              indexed=True)
+
+
 class Subject(db.Model):
     code = db.StringProperty(required=True,    # E.g. COMP
 
                              indexed=True)
+
+
 class Course(db.Model):
     subject = db.ReferenceProperty(Subject,
                                    required=True,
@@ -32,11 +36,19 @@ class Course(db.Model):
     credit_hours = db.IntegerProperty(required=True)
 
 
+class CourseTaken(db.Model):
+    user = db.ReferenceProperty(User, required=True ,
+                                collection_name='courses_taken')
+    course = db.ReferenceProperty(Course,required=True)
+    term = db.ReferenceProperty(Term,required=True)
+
+
 def get_user(net_id, create=False):
     user = User.gql('WHERE net_id=:1', net_id).get()
     if not user and create:
         user = User(net_id=net_id).put()
     return user
+
 
 def get_department(name, create=False):
     department = Department.gql('WHERE name=:1', name).get()
@@ -52,18 +64,3 @@ def get_subject(code, create=False):
         subject = Subject(code=code)
         subject.put()
     return subject
-
-class Course(db.Model):
-    subject = db.ReferenceProperty(Subject,
-                                   required=True,
-                                   collection_name='courses')
-    number = db.StringProperty(required=True)     # E.g. 182
-    terms = db.ListProperty(db.Key)      # List of terms its been taught
-    xlink = db.StringProperty()
-    credit_hours = db.IntegerProperty(required=True)
-
-class CourseTaken(db.Model):
-    user = db.ReferenceProperty(User, required=True ,
-                                collection_name='courses_taken')
-    course = db.ReferenceProperty(Course,required=True)
-    term = db.ReferenceProperty(Term,required=True)
