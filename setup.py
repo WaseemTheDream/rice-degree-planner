@@ -85,8 +85,9 @@ def comp_sci_core_group():
         name='Introductory CS',
         num_required=1)
     intro_requirement.load_courses(intro)
-    # intro_requirement.load_excluded()     waseem added this for something?
+    intro_requirement.load_excluded
     intro_requirement.put()
+
 
     algorithms = [models.get_course('COMP 182')]
     assert (None not in algorithms)
@@ -96,6 +97,48 @@ def comp_sci_core_group():
     algorithms_requirement.load_courses(algorithms)
     algorithms_requirement.put()
 
+
+    programming = [models.get_course('COMP 215')]
+    assert (None not in programming)
+    programming_requirement = models.CoursesRequirement(
+        name='Programming',
+        num_required=1)
+    programming_requirement.load_courses(programming)
+    programming_requirement.put()
+    
+    hardware = [models.get_course('ELEC 220')]
+    assert (None not in hardware)
+    hardware_requirement = models.CoursesRequirement(
+        name='Hardware',
+        num_required=1)
+    hardware_requirement.load_courses(hardware)
+    hardware_requirement.put()
+
+    systems = [models.get_course('COMP 221')]
+    assert (None not in systems)
+    systems_requirement = models.CoursesRequirement(
+        name='Systems',
+        name_required=1)
+    systems_requirement.load_courses(systems)
+    systems_requirement.put()
+    
+    object_programming = [models.get_course('COMP 310')]
+    assert (None not in object_programming)
+    object_programming_requirement = models.CoursesRequirement(
+        name='Object Oriented Programming',
+        name_required=1)
+    object_programming_requirement.load_courses(object_programming)
+    object_programming_requirement.put()
+    
+    parallel = [models.get_course('COMP 322')]
+    assert (None not in parallel)
+    parallel_requirement = models.CoursesRequirement(
+        name='Parallel Programming',
+        name_required=1)
+    parallel_requirement.load_courses(parallel)
+    parallel_requirement.put()
+    
+    
     programming_languages = [models.get_course(course) for course in ['COMP 411', 'COMP 412']]
     assert (None not in programming_languages)
     programming_languages_requirement = models.CoursesRequirement(
@@ -104,18 +147,25 @@ def comp_sci_core_group():
     programming_languages_requirement.load_courses(programming_languages)
     programming_languages_requirement.put()
 
+    os = [models.get_course('COMP 421')]
+    assert (None not in os)
+    os_requirement = models.CoursesRequirement(
+        name='Operating Systems',
+        num_required=1)
+    os_requirement.load_courses(os)
+    os_requirement.put()
 
     cs_theory = [models.get_course(course) for course in ['COMP 481', 'COMP 482']]
     assert (None not in cs_theory)
     cs_theory_requirement = models.CoursesRequirement(
         name='Computer Science Theory',
         num_required=1)
-    cs_theory_requirement.load_courses(programming_languages)
+    cs_theory_requirement.load_courses(cs_theory)
     cs_theory_requirement.put()
 
 
     core_group = models.RequirementGroup(name='CS Core')
-    for req in [intro_requirement, algorithms_requirement, programming_languages_requirement, cs_theory_requirement]:
+    for req in [intro_requirement, algorithms_requirement programming_requirement hardware_requirement systems_requirement object_programming_requirement programming_languages_requirement os_requirement cs_theory_requirement]:
         core_group.requirements.append(req.key())
     core_group.put()
     return core_group
