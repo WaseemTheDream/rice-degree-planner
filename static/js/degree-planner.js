@@ -1,3 +1,5 @@
+var needsReload = false;
+
 $(function() {
 	$(".classes").append('<button class="add-class-button">+</button>');
 	$(".add-class-button").click(function(){
@@ -15,8 +17,16 @@ $(function() {
 });
 
 function openAddClassPopup(term){
-	$html = '<div id="add-class-popup"><span class="popup-title">Enter Class Name</span><div id="search-container"><input type="text" name="search" id="search" /><input type="hidden" name="class_id" id="class_id" /><div class="note">Ex: COMP 140, PHIL 103, CAAM 335...</div></div><button id="submit-add-class" class="button">Add Class</button></div>';
-	$.fancybox($html);
+	html = '<div id="add-class-popup"><span class="popup-title">Enter Class Name</span><div id="search-container"><input type="text" name="search" id="search" /><input type="hidden" name="class_id" id="class_id" /><div class="note">Ex: COMP 140, PHIL 103, CAAM 335...</div></div><button id="submit-add-class" class="button">Add Class</button></div>';
+	needsReload = false;
+	$.fancybox(html, {
+		afterClose : function() {
+			if(needsReload){
+				location.reload();
+			}
+			return;
+		}
+	});
 	$("#submit-add-class").click(function(){
 		submitAddClass($("#search").val(), term);
 	});
@@ -32,14 +42,27 @@ function submitAddClass(course, term){
 		$("#search").css("border-color","#F33");
 		$("#search-container").effect("shake", { times:2, distance:5 }, 500);
 	}else{
-		data = {'term': term, 'course': course};
-		$.post("/addCourse", {'json': JSON.stringify(data)}, function(data){
-			if(data['id'] === undefined){
+		data = {'term': term, 'course': course};		
+		$.ajax({
+			type: "POST",
+			url: "/addCourse",
+			data: {'json': JSON.stringify(data)},
+			dataType: "json",
+			success: function(data){
+				if(data.success){
+					needsReload = true;
+					$.fancybox.close();
+				}else{
+					$("#search").css("border-color","#F33");
+					$("#search-container").effect("shake", { times:2, distance:5 }, 500);
+				}
+			},
+			error: function(data){
+				$("#search").css("border-color","#F33");
 				$("#search-container").effect("shake", { times:2, distance:5 }, 500);
-			}else{
-				$.fancybox.close();
 			}
 		});
+		
 		
 	}
 }

@@ -111,7 +111,7 @@ class AddCourseHandler(webapp2.RequestHandler):
 
         coursetaken = models.CourseTaken(user = user, course = course, term = term)
         coursetaken.put()
-        data['id'] = str(coursetaken.key())
+        data['success'] = 1
         self.response.out.write(json.dumps(data))
 
 class DeleteCourseHandler(webapp2.RequestHandler):
