@@ -56,38 +56,32 @@ class MainHandler(webapp2.RequestHandler):
         self.response.out.write(template.render(page_data))
 
 class AddCourseHandler(webapp2.RequestHandler):
-    def post(self):
-        session = get_current_session()
-        
-        # Uncomment when we have the login page working
-        # if not session.has_key('net_id'):
-        #     return
+	def post(self):
+		session = get_current_session()
+		if not session.has_key('net_id'):
+			return
+		user = models.get_user(session['net_id'])
+		data = json.loads(self.request.get('json'))
+		logging.info(data)
+		
+		course = models.get_course(data['course'])
+		
+		if not course:
+			data['error'] = "Invalid Course"
+			self.response.out.write(json.dumps(data))
+			return
+		
+		term = models.Term.gql('WHERE code=:1', str(data['term']))
+		
+		if not term:
+			data['error'] = "Invalid Term"
+			self.response.out.write(json.dumps(data))
+			return
+		
+		coursetaken = models.CourseTaken(user = user.key(), course = course, term = term)
+		#coursetaken.put()
+		#data['id'] = str(coursetaken.key())
+		self.response.out.write(json.dumps(data))
 
-        user = get_user(session['net_id'])
-        data = json.loads(self.request.get('json'))
-        logging.info(data)
+	#def get(self):
 
-        # {"term":"{term_id}","course":"COMP 140"}
-        coursetaken = CourseTaken(user = user.key(),
-                                  course = models.get_course(data['course']),
-                                  term = models.Term('WHERE code=:1', data['term']))
-
-        coursetaken.put()
-
-        # Logging
-        data['id'] = str(coursetaken.key())
-        self.response.out.write(json.dumps(data))
-
-    def get(self):
-        pass
-
-        
-
-        
-
-        
-
-app = webapp2.WSGIApplication([
-    ('/.*', MainHandler),
-    ('/addcourse', AddCourseHandler)
-], debug=True)

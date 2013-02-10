@@ -39,7 +39,8 @@ function submitAddClass(course, term){
 		$("#search").css("border-color","#F33");
 		$("#search-container").effect("shake", { times:2, distance:5 }, 500);
 	}else{
-		$.post("/addcourse", {term: term, course: course});
+		data = {'term': term, 'course': course};
+		$.post("/addcourse", {'json': JSON.stringify(data)});
 		$.fancybox.close();
 	}
 }
