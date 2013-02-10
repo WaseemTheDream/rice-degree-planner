@@ -17,6 +17,8 @@ class Department(db.Model):
     name = db.StringProperty(required=True,
                              indexed=True)
 
+class DistributionGroup(db.Model):
+    name = db.StringProperty()
 
 class Subject(db.Model):
     code = db.StringProperty(required=True,    # E.g. COMP
@@ -29,7 +31,7 @@ class Course(db.Model):
                                    collection_name='courses')
     number = db.StringProperty(required=True)     # E.g. 182
     terms = db.ListProperty(db.Key)      # List of terms its been taught
-    distribution = db.StringProperty()
+    distribution = db.ReferenceProperty(DistributionGroup) # ref to distribution entity
     xlink = db.StringProperty()
     credit_hours = db.IntegerProperty(required=True)
 
@@ -215,6 +217,13 @@ def get_subject(code, create=False):
         subject = Subject(code=code)
         subject.put()
     return subject
+
+def get_distribution_group(name, create=False):
+    dist = DistributionGroup.gql('WHERE name=:1', name).get()
+    if not dist and create:
+        dist = DistributionGroup(name=name)
+        dist.put()
+    return dist
 
 def get_course(name):
     """

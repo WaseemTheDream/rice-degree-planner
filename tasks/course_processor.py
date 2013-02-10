@@ -39,7 +39,8 @@ def process_course(data):
     department = models.get_department(data['department'], create=True)
     subject = models.get_subject(data['subject'], create=True)
     credit_hours = try_parse_int(data['credit-hours'], 0)
-    distribution = data['distribution-group']
+    distribution = models.get_distribution_group(data['distribution-group'])
+    
     xlink = data['xlink-course']
     number = data['course-number']
 
