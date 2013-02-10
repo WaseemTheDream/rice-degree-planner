@@ -13,17 +13,12 @@ class User(db.Model):
 	net_id = db.StringProperty(required=True)
 	terms = db.ListProperty(db.Key)
 
-class Department(db.Model):
-    name = db.StringProperty(required=True,
-                             indexed=True)
-
 class DistributionGroup(db.Model):
     name = db.StringProperty()
 
 class Subject(db.Model):
     code = db.StringProperty(required=True,    # E.g. COMP
                              indexed=True)
-
 
 class Course(db.Model):
     subject = db.ReferenceProperty(Subject,
@@ -226,14 +221,6 @@ def get_user(net_id, create=False):
 		else:
 			return False
 	return user
-
-
-def get_department(name, create=False):
-    department = Department.gql('WHERE name=:1', name).get()
-    if not department and create:
-        department = Department(name=name)
-        department.put()
-    return department
 
 
 def get_subject(code, create=False):

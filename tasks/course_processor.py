@@ -36,10 +36,12 @@ def process_course(data):
         term = models.Term(code=term_code, description=data['term-description'])
         term.put()
 
-    department = models.get_department(data['department'], create=True)
     subject = models.get_subject(data['subject'], create=True)
     credit_hours = try_parse_int(data['credit-hours'], 0)
-    distribution = models.get_distribution_group(data['distribution-group'])
+
+    # Add distribution if the course has this data
+    if 'distribution-group' in data:
+        distribution = models.get_distribution_group(data['distribution-group'], create=True)
     
     xlink = data['xlink-course']
     number = data['course-number']

@@ -128,3 +128,5 @@ class DeleteCourseHandler(webapp2.RequestHandler):
 
         course_taken.delete()
         self.response.out.write('Deleted')
+
+        
