@@ -82,33 +82,3 @@ class AddCourseHandler(webapp2.RequestHandler):
 		#coursetaken.put()
 		#data['id'] = str(coursetaken.key())
 		self.response.out.write(json.dumps(data))
-
-	#def get(self):
-
-<<<<<<< HEAD
-=======
-        # {"term":"{term_id}","course":"COMP 140"}
-        coursetaken = CourseTaken(user = user.key(),
-                                  course = models.get_course(data['course']),
-                                  term = models.Term('WHERE code=:1', data['term']))
-
-        coursetaken.put()
-
-        # Logging
-        data['id'] = str(coursetaken.key())
-        self.response.out.write(json.dumps(data))
-
-    def get(self):
-        pass
-
-        
-
-        
-
-        
-
-app = webapp2.WSGIApplication([
-    ('/addcourse', AddCourseHandler),
-    ('/.*', MainHandler)
-], debug=True)
->>>>>>> reversed order of main.py bottom code
