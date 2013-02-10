@@ -180,6 +180,14 @@
 		<div class="semester" data-term="{{ term.code }}">
 			<h2>{{ term.description }}</h2>
 			<div class="classes">
+				{% for course in courses %}
+				<div class="class" data-course="XYZ">
+					<span class="name">{{ course.name }}</span>
+					<span class="delete">X</span>
+					<div class="group-icons">
+					</div>
+				</div>	
+				{% endfor %}
 			</div>
 		</div>
 		{% endfor %}

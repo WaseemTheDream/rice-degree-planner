@@ -49,10 +49,19 @@ class MainHandler(webapp2.RequestHandler):
     	page_data['terms'] = []	    
         terms = models.Term.gql('LIMIT 10')
         for term in terms:
-        	page_data['terms'].append({   ## if terms_data is an array, it is integer-indexed. Therefore list['a string'] is invalid
-        			'code': term.code,
-        			'description' : term.description
-        		})
+			thisTerm = {
+				'code': term.code,
+				'description':term.description
+			}        
+			courseTakens = models.CourseTaken.gql('WHERE user=:1 AND term=:2', user, term)
+			thisTerm['courses'] = []
+			for courseTaken in courseTakens:
+				thisTerm['courses'].append({
+					'name': courseTaken.course.subject.code + " " + courseTaken.course.number,
+					'term': courseTaken.term.code
+				})
+        	page_data['terms'].append(thisTerm)
+        
         self.response.out.write(template.render(page_data))
 
 class AddCourseHandler(webapp2.RequestHandler):
