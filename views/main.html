@@ -6,12 +6,46 @@
 	<script type="text/javascript" src="/static/js/fancybox/jquery.fancybox.js"></script>
 	<link rel="stylesheet" href="/static/js/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="/static/css/main.css" type="text/css" media="screen" />
-	<script type="text/javascript">
-		$(function() {
-			$(".classes").append('<a href="/AddClass" data-fancybox-type="iframe" class="fancybox">+ Add Class</a>');
-			$(".fancybox").fancybox();
-		});
-	</script>
+	<link rel="stylesheet" href="/static/css/jquery-ui.css" type="text/css" media="screen" />
+	<script type="text/javascript" src="/static/js/degree-planner.js"></script>
+	<style>
+		.popup-title{display:block;border-bottom:solid 1px #CCC;}
+		#search{display:block; width:200px;font-size: 20px; padding:5px;border-radius:5px; border:solid 1px #CCC;}
+		#search-container{padding:10px;}
+		.note{font-size:10px;}
+		#add-class-popup{text-align:center;}
+		.button {
+			-moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+			-webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+			box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+			background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5) );
+			background:-moz-linear-gradient( center top, #79bbff 5%, #378de5 100% );
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5');
+			background-color:#79bbff;
+			-moz-border-radius:6px;
+			-webkit-border-radius:6px;
+			border-radius:6px;
+			border:1px solid #84bbf3;
+			display:inline-block;
+			color:#ffffff;
+			font-family:arial;
+			font-size:15px;
+			font-weight:bold;
+			padding:6px 24px;
+			text-decoration:none;
+			text-shadow:1px 1px 0px #528ecc;
+		}
+		.button:hover {
+			background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff) );
+			background:-moz-linear-gradient( center top, #378de5 5%, #79bbff 100% );
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff');
+			background-color:#378de5;
+		}
+		.button:active {
+			position:relative;
+			top:1px;
+		}
+	</style>
 </head>
 <body>
 	<div id="titlebar">
@@ -98,93 +132,88 @@
 		</div>
 	</div>
 	<div id="schedule">
-	<div class="semester">
-		<h2>Transfer Credit</h2>
-		<div class="classes">
-			<div class="class">
-				PSYC 101
-				<div class="group-icons">
-					<span class="group-icon group2"></span>
+		<div class="semester">
+			<h2>Transfer Credit</h2>
+			<div class="classes">
+				<div class="class">
+					PSYC 101
+					<div class="group-icons">
+						<span class="group-icon group2"></span>
+					</div>
 				</div>
-			</div>
-			<div class="class">
-				CALC 101
-				<div class="group-icons">
-					<span class="group-icon group3"></span>
-					<span class="group-icon group4"></span>
+				<div class="class">
+					CALC 101
+					<div class="group-icons">
+						<span class="group-icon group3"></span>
+						<span class="group-icon group4"></span>
+					</div>
 				</div>
-			</div>
-			<div class="class">
-				CALC 102
-				<div class="group-icons">
-					<span class="group-icon group3"></span>
-					<span class="group-icon group4"></span>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="semester">
-		<h2>Fall 2010</h2>
-		<div class="classes">
-			<div class="class">
-				COMP 140
-				<div class="group-icons">
-					<span class="group-icon group3"></span>
-				</div>
-			</div>
-			<div class="class">
-				COMP 215
-				<div class="group-icons">
-					<span class="group-icon group3"></span>
-				</div>
-			</div>
-			<div class="class">
-				PHIL 103
-				<div class="group-icons">
-					<span class="group-icon group1"></span>
+				<div class="class">
+					CALC 102
+					<div class="group-icons">
+						<span class="group-icon group3"></span>
+						<span class="group-icon group4"></span>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="semester">
-		<h2>Spring 2011</h2>
-		<div class="classes">
-			<div class="class">
-				COMP 322
-				<div class="group-icons">
-					<span class="group-icon group3"></span>
-					<span class="group-icon group6"></span>
+		<div class="semester">
+			<h2>Fall 2010</h2>
+			<div class="classes">
+				<div class="class">
+					COMP 140
+					<div class="group-icons">
+						<span class="group-icon group3"></span>
+					</div>
 				</div>
-			</div>
-			<div class="class">
-				COMP 221
-				<div class="group-icons">
-					<span class="group-icon group3"></span>
+				<div class="class">
+					COMP 215
+					<div class="group-icons">
+						<span class="group-icon group3"></span>
+					</div>
 				</div>
-			</div>
-			<div class="class">
-				ECON 201
-				<div class="group-icons">
-					<span class="group-icon group2"></span>
+				<div class="class">
+					PHIL 103
+					<div class="group-icons">
+						<span class="group-icon group1"></span>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="semester">
-		<h2>Fall 2011</h2>
-		<div class="classes">
+		<div class="semester">
+			<h2>Spring 2011</h2>
+			<div class="classes">
+				<div class="class">
+					COMP 322
+					<div class="group-icons">
+						<span class="group-icon group3"></span>
+						<span class="group-icon group6"></span>
+					</div>
+				</div>
+				<div class="class">
+					COMP 221
+					<div class="group-icons">
+						<span class="group-icon group3"></span>
+					</div>
+				</div>
+				<div class="class">
+					ECON 201
+					<div class="group-icons">
+						<span class="group-icon group2"></span>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
-	<div class="semester">
-		<h2>Spring 2012</h2>
-		<div class="classes">
+		<div class="semester">
+			<h2>Fall 2011</h2>
+			<div class="classes">
+			</div>
 		</div>
-	</div>
-	<div class="semester">
-		<a href="#">+Add Semester</a>
-	</div>
-	</div>
-	<div id="popup">
+		<div class="semester">
+			<h2>Spring 2012</h2>
+			<div class="classes">
+			</div>
+		</div>
 	</div>
 </body>
 </html>
