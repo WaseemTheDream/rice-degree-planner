@@ -144,7 +144,8 @@ class RequirementsFromCoursesRange(Requirement):
         max_credits_required = 4 * self._num_required
         courses_matching = []       # Courses taken that fulfill this requirement
         for course in courses_taken:
-            if course.subject.key() in self._subject_options:
+            number = try_parse_int(course.number, 0)
+            if self._lower_range <= number and number <= self._upper_range:
                 courses_matching.append(course)
         credits_taken = sum([course.credit_hours for course in courses_matching])
         return {
@@ -191,3 +192,13 @@ def get_course(name):
     course = Course.gql(
             'WHERE subject=:1 AND number=:2', subject, course_number).get()
     return course
+
+def try_parse_int(string, val=None):
+    """
+    Tries to parse the given string, if it fails returns val.
+    """
+    try:
+        return int(string)
+    except ValueError:
+        return val
+
