@@ -16,10 +16,8 @@ class CoursesHandler(webapp2.RequestHandler):
         if not query_string:
             self.response.out.write('No query provided')
             return
-        
-        subject_code = self.request.get('subject')
-        course_number = self.request.get('number')
-        # db.GqlQuery("SELECT * FROM MyModel WHERE prop >= :1 AND prop < :2", "abc", u"abc" + MAX_STRING)
+
+        subject_code, course_number = tuple(query_string.split(' '))
         subject = models.Subject.gql('WHERE code=:1', subject_code).get()
         if not subject:
             logging.error('Subject not found')
