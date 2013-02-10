@@ -120,26 +120,6 @@ class DeleteCourseHandler(webapp2.RequestHandler):
 
         data = json.loads(self.request.get('json'))
 
-        # course = models.get_course(data['course'])
-
-        # if not course:
-        #     data['error'] = "Invalid Course"
-        #     self.response.out.write(json.dumps(data))
-        #     return
-
-        # term = models.Term.gql('WHERE code=:1', str(data['term'])).get()
-
-        # if not term:
-        #     data['error'] = "Invalid Term"
-        #     self.response.out.write(json.dumps(data))
-        #     return
-
-        # course_taken = models.CourseTaken.gql(user=user, course=course, term=term).get()
-        # if not course_taken:
-        #     data['error'] = "You never took this course"
-        #     self.response.out.write(json.dumps(data))
-        #     return
-
         course_taken = models.CourseTaken.get(data['id'])
         if not course_taken:
             data['error'] = "Course Taken not found!"
