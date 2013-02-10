@@ -43,6 +43,48 @@ class CourseTaken(db.Model):
     term = db.ReferenceProperty(Term,required=True)
 
 
+class Requirement(polymodel.PolyModel):
+    name = db.StringProperty(required=True)     # Requirement name
+    description = db.StringProperty()
+
+    def progress(self, courses_taken):
+        """
+        Determines the progress of the user in a certain requirement.
+
+        Args:
+            courses_taken {List<Course>}: list of courses taken
+
+        Returns:
+            max_credits_required: maximum number of total credits required to fulfill
+            min_credits_required: minimum number of total credits required to fulfill
+            credits_taken: number of credits taken towards degree
+            courses_taken: courses taken that fulfill requirements
+        """
+        raise NotImplementedError('Abstract method')
+
+
+class RequirementFromCourses(Requirement):
+    _options = db.ListProperty(db.Key)
+    _num_required = db.IntegerProperty(required=True)
+
+    def __init__(self, num_required, options):
+        """
+        Constructor.
+
+        Args:
+            num_required {Integer}: number of courses required
+            options {List<Course>}: list of options
+        """
+        assert(num_required < len(options))
+        self._num_required = num_required
+        for course in options:
+            self._options.append(course.key())
+
+    def progess(self, courses_taken):
+        credit_list = []
+        return None
+
+
 def get_user(net_id, create=False):
     user = User.gql('WHERE net_id=:1', net_id).get()
     if not user and create:
