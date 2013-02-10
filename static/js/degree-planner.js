@@ -1,5 +1,5 @@
 $(function() {
-	$(".classes").append('<button class="add-class-button">Add Class</button>');
+	$(".classes").append('<button class="add-class-button">+</button>');
 	$(".add-class-button").click(function(){
 		openAddClassPopup();
 	});
