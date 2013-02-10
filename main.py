@@ -105,8 +105,52 @@ class AddCourseHandler(webapp2.RequestHandler):
         coursetaken.put()
         data['id'] = str(coursetaken.key())
         self.response.out.write(json.dumps(data))
+
+class DeleteCourseHandler(webapp2.RequestHandler):
+    def post(self):
+        session = get_current_session()
+        if not session.has_key('net_id'):
+            return
+        user = models.get_user(session['net_id'])
+
+        if not user:
+            data['error'] = "Invalid User"
+            self.response.out.write(json.dumps(data))
+            return
+
+        data = json.loads(self.request.get('json'))
+
+        # course = models.get_course(data['course'])
+
+        # if not course:
+        #     data['error'] = "Invalid Course"
+        #     self.response.out.write(json.dumps(data))
+        #     return
+
+        # term = models.Term.gql('WHERE code=:1', str(data['term'])).get()
+
+        # if not term:
+        #     data['error'] = "Invalid Term"
+        #     self.response.out.write(json.dumps(data))
+        #     return
+
+        # course_taken = models.CourseTaken.gql(user=user, course=course, term=term).get()
+        # if not course_taken:
+        #     data['error'] = "You never took this course"
+        #     self.response.out.write(json.dumps(data))
+        #     return
+
+        course_taken = models.CourseTaken.get(data['id'])
+        if not course_taken:
+            data['error'] = "Course Taken not found!"
+            self.response.out.write(json.dumps(data))
+            return
+
+        course_taken.delete()
+        self.response.out.write('Deleted')
         
 app = webapp2.WSGIApplication([
     ('/addCourse', AddCourseHandler),
+    ('/deleteCourse', DeleteCourseHandler),
     ('/.*', MainHandler)
 ], debug=True)
