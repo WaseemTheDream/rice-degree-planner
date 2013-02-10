@@ -65,7 +65,8 @@ class MainHandler(webapp2.RequestHandler):
                 thisTerm['courses'].append({
                     'name': courseTaken.course.subject.code + " " + courseTaken.course.number,
                     'term': courseTaken.term.code,
-                    'id' : courseTaken.key()
+                    'taken_id' : courseTaken.key(),
+                    'id' : courseTaken.course.key()
                 })
             page_data['terms'].append(thisTerm)
         

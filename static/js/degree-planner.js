@@ -14,7 +14,27 @@ $(function() {
 	$(".degree .delete").click(function(){
 		deleteDegree($(this).parents(".degree"));
 	});
+	
+	
+	processBubbles();
+	
 });
+
+function processBubbles(){
+	$(".satified-by li").each(function(){		
+		courseId = $(this).data('courseId');
+		if(courseId){
+			groupClasses = $(this).parents(".group").find(".progress").attr('class').split(' ');
+			for(i in groupClasses){
+				if(groupClasses[i].indexOf("group") > -1){
+					groupClass = groupClasses[i]
+				}
+			}
+			hours = "?";
+			$("#schedule .class[data-course-id=\""+courseId+"\"]").find(".group-icons").append('<span class="group-icon '+groupClass+'">'+hours+'</span>');
+		}
+	});
+}
 
 function openAddClassPopup(term){
 	html = '<div id="add-class-popup"><span class="popup-title">Enter Class Name</span><div id="search-container"><input type="text" name="search" id="search" /><input type="hidden" name="class_id" id="class_id" /><div class="note">Ex: COMP 140, PHIL 103, CAAM 335...</div></div><button id="submit-add-class" class="button">Add Class</button></div>';
@@ -80,12 +100,7 @@ function submitEditUser(){
 }
 
 function deleteClass(x){
-	data = {'id':x.data('courseId')}
+	data = {'id':x.data('courseTakenId')}
 	$.post("/deleteCourse", {'json': JSON.stringify(data)});
-	x.fadeOut();
-}
-
-function deleteDegree(x){
-	alert("I should be telling the server to delete the linking of \""+x.data("degree")+"\" degree");
 	x.fadeOut();
 }
