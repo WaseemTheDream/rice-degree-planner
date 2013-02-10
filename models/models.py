@@ -53,6 +53,7 @@ class Requirement(polymodel.PolyModel):
 
         Returns:
             A dictionary with the following key value pairs
+            name: the name of the requirement for which progress is being shown
             max_credits_required: maximum number of total credits required to fulfill
             min_credits_required: minimum number of total credits required to fulfill
             credits_taken: number of credits taken towards degree
@@ -102,7 +103,7 @@ class CourseRangeRequirement(Requirement):
     any_subject = db.BooleanProperty(default=False)  # If true, doesn't check for subject_options matching
     num_required = db.IntegerProperty(required=True)
     lower_range = db.IntegerProperty(required=True)
-    upper_rage = db.IntegerProperty(required=True)
+    upper_range = db.IntegerProperty(required=True)
         
     def load_subjects(self, subject_options):
         """
@@ -130,7 +131,7 @@ class CourseRangeRequirement(Requirement):
                 continue
             if course.key() in self.excluded_courses:
                 continue
-            if self.lower_range <= number and number <= self.upper_rage:
+            if self.lower_range <= number and number <= self.upper_range:
                 courses_matching.append(course)
         credits_taken = sum([course.credit_hours for course in courses_matching])
         return {
