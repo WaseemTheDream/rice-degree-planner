@@ -43,15 +43,15 @@ def comp_sci_math_and_science_group():
         name='Probability',
         num_required=1)
     probability_requirement.load_courses(probability)
-    probabilty_requirement.put()
+    probability_requirement.put()
 
-    linear_algebra = [models.get_course(course) for course in ['MATH 355','MATH 354','CAAM 335']]
-    assert (None not in linear_algebra)
-    linear_algebra_requirement = models.CoursesRequirement(
-        name='Linear Algebra',
-        num_required=1)
-    linear_algebra_requirement.load_courses(linear_algebra)
-    linear_algebra_requirement.put()
+    # linear_algebra = [models.get_course(course) for course in ['MATH 355','MATH 354','CAAM 335']]
+    # assert (None not in linear_algebra)
+    # linear_algebra_requirement = models.CoursesRequirement(
+    #     name='Linear Algebra',
+    #     num_required=1)
+    # linear_algebra_requirement.load_courses(linear_algebra)
+    # linear_algebra_requirement.put()
     
     physics1 = [models.get_course(course) for course in ['PHYS 101', 'PHYS 111','PHYS 125']]
     assert (None not in physics1)
@@ -70,7 +70,8 @@ def comp_sci_math_and_science_group():
     physics2_requirement.put()
     
     math_and_science_group = models.RequirementGroup(name='Math and Science')
-    for req in [calculus_requirement, advanced_calculus_requirement, probability_requirement, linear_algebra_requirement, physics1_requirement, physics2_requirement]:
+    # for req in [calculus_requirement, advanced_calculus_requirement, probability_requirement, linear_algebra_requirement, physics1_requirement, physics2_requirement]:
+    for req in [calculus_requirement, advanced_calculus_requirement, probability_requirement, physics1_requirement, physics2_requirement]:
         math_and_science_group.requirements.append(req.key())
     math_and_science_group.put()
 
@@ -84,7 +85,7 @@ def comp_sci_core_group():
         name='Introductory CS',
         num_required=1)
     intro_requirement.load_courses(intro)
-    intro_requirement.load_excluded
+    # intro_requirement.load_excluded()     waseem added this for something?
     intro_requirement.put()
 
     algorithms = [models.get_course('COMP 182')]
@@ -125,7 +126,7 @@ def comp_sci_major():
 
     # Set up elective requirement group 
     elective_group = models.RequirementGroup(name='CS Electives')
-    courserange = models.CourseRangeRequirement(num_required=2, lower_range=300, upper_range=999)
+    courserange = models.CourseRangeRequirement(name='electives', num_required=2, lower_range=300, upper_range=999)
     comp = models.Subject.gql('WHERE code=:1', 'COMP').get()
     courserange.load_subjects([comp])
     courserange.put()

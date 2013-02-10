@@ -195,6 +195,9 @@ class RequirementGroup(db.Model):
         overall_progress = [req.progress(courses_taken) for req in requirements]
         credits_taken = sum([prog['credits_taken'] for prog in overall_progress])
         min_credits_required = sum([prog['min_credits_required'] for prog in overall_progress])
+
+        min_credits_required = 1 if min_credits_required <= 0 else min_credits_required
+        
         max_credits_required = sum([prog['max_credits_required'] for prog in overall_progress])
         return {
             'name': self.name,

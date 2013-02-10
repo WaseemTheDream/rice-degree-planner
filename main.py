@@ -76,7 +76,10 @@ class MainHandler(webapp2.RequestHandler):
         for courses_taken in courses_takens:
         	courses.append(courses_taken.course)
         
-        page_data['progress'] = degree.progress_summaries(courses)
+        if degree:
+            page_data['progress'] = degree.progress_summaries(courses)
+
+        logging.info(page_data['progress'])    
         self.response.out.write(template.render(page_data))
 
 class AddCourseHandler(webapp2.RequestHandler):
