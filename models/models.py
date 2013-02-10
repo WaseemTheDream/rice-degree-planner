@@ -102,7 +102,7 @@ class CoursesRequirement(Requirement):
                 courses_matching.append(course_taken)
         credits_taken = sum([course.credit_hours for course in courses_matching])
         return {
-            'name': self.name
+            'name': self.name,
             'max_credits_required': max_credits_required,
             'min_credits_required': min_credits_required,
             'credits_taken': credits_taken,
@@ -153,7 +153,7 @@ class CourseRangeRequirement(Requirement):
                 courses_matching.append(course)
         credits_taken = sum([course.credit_hours for course in courses_matching])
         return {
-            'name': self.name
+            'name': self.name,
             'max_credits_required': max_credits_required,
             'min_credits_required': min_credits_required,
             'credits_taken': credits_taken,
@@ -186,7 +186,7 @@ class RequirementGroup(db.Model):
         min_credits_required = sum([prog['min_credits_required'] for prog in overall_progress])
         max_credits_required = sum([prog['max_credits_required'] for prog in overall_progress])
         return {
-            'name': self.name
+            'name': self.name,
             'min_credits_required': min_credits_required,
             'max_credits_required': max_credits_required,
             'credits_taken': credits_taken,
