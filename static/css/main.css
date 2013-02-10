@@ -9,6 +9,7 @@ body{
 	margin: 0px;
 }
 #titlebar{
+	z-index:1000;
 	background:#002469;
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #002469), color-stop(1, #005499) );
 	background:-moz-linear-gradient( center top, #002469 5%, #005499 100% );
@@ -209,8 +210,9 @@ body{
 
 }
 .semester .classes .class .name{
-	padding: 0px 20px;
+	padding: 5px 20px;
 	/*text-shadow:1px 1px 0px #528ecc;*/
+	letter-spacing: 1px;
 	color: #002469;
 }
 
