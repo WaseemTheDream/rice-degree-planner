@@ -123,59 +123,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="semester">
-			<h2>Fall 2010</h2>
-			<div class="classes">
-				<div class="class" data-course="XYZ">
-					<span class="name">COMP 140</span>
-					<span class="delete">X</span>
-					<div class="group-icons">
-						<span class="group-icon group3">4</span>
-					</div>
-				</div>
-				<div class="class" data-course="XYZ">
-					<span class="name">COMP 215</span>
-					<span class="delete">X</span>
-					<div class="group-icons">
-						<span class="group-icon group3">4</span>
-					</div>
-				</div>
-				<div class="class" data-course="XYZ">
-					<span class="name">PHIL 103</span>
-					<span class="delete">X</span>
-					<div class="group-icons">
-						<span class="group-icon group1">3</span>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="semester">
-			<h2>Spring 2011</h2>
-			<div class="classes">
-				<div class="class" data-course="XYZ">
-					<span class="name">COMP 322</span>
-					<span class="delete">X</span>
-					<div class="group-icons">
-						<span class="group-icon group3">4</span>
-						<span class="group-icon group6">4</span>
-					</div>
-				</div>
-				<div class="class" data-course="XYZ">
-					<span class="name">COMP 221</span>
-					<span class="delete">X</span>
-					<div class="group-icons">
-						<span class="group-icon group3">4</span>
-					</div>
-				</div>
-				<div class="class" data-course="XYZ">
-					<span class="name">ECON 201</span>
-					<span class="delete">X</span>
-					<div class="group-icons">
-						<span class="group-icon group2">3</span>
-					</div>
-				</div>
-			</div>
-		</div>
 		{% for term in terms %}
 		<div class="semester" data-term="{{ term.code }}">
 			<h2>{{ term.description }}</h2>
