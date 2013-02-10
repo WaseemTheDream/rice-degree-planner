@@ -1,7 +1,7 @@
 $(function() {
 	$(".classes").append('<button class="add-class-button">+</button>');
 	$(".add-class-button").click(function(){
-		openAddClassPopup();
+		openAddClassPopup($(this).parents(".semester").data("term"));
 	});
 	$("#user-button").click(function(){
 		openEditUserPopup();
@@ -14,11 +14,11 @@ $(function() {
 	});
 });
 
-function openAddClassPopup(){
+function openAddClassPopup(term){
 	$html = '<div id="add-class-popup"><span class="popup-title">Enter Class Name</span><div id="search-container"><input type="text" name="search" id="search" /><input type="hidden" name="class_id" id="class_id" /><div class="note">Ex: COMP 140, PHIL 103, CAAM 335...</div></div><button id="submit-add-class" class="button">Add Class</button></div>';
 	$.fancybox($html);
 	$("#submit-add-class").click(function(){
-		submitAddClass();
+		submitAddClass($("#class_id").val(), term);
 	});
 	$("#search").autocomplete({
 		source:"GetClasses.html",
@@ -27,19 +27,19 @@ function openAddClassPopup(){
 		}
 	}).keypress(function(event) {
 		if ( event.which == 13 && $("#class_id").val()) {
-			submitAddClass();
+			submitAddClass($("#class_id").val(), term);
 		}else{
 			$("#class_id").val("");
 		}
    });
 }
 
-function submitAddClass(){
+function submitAddClass(course, term){
 	if(!$("#class_id").val()){
 		$("#search").css("border-color","#F33");
 		$("#search-container").effect("shake", { times:2, distance:5 }, 500);
 	}else{
-		alert("I should be telling the server that you want to add course \""+$("#class_id").val()+"\"");
+		$.post("/addcourse", {term: term, course: course});
 		$.fancybox.close();
 	}
 }

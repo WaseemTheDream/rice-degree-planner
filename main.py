@@ -50,7 +50,7 @@ class MainHandler(webapp2.RequestHandler):
         terms = models.Term.gql('LIMIT 10')
         for term in terms:
         	page_data['terms'].append({   ## if terms_data is an array, it is integer-indexed. Therefore list['a string'] is invalid
-        			'id': term.key(),
+        			'code': term.code,
         			'description' : term.description
         		})
         self.response.out.write(template.render(page_data))
