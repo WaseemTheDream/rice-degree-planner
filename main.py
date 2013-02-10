@@ -21,7 +21,7 @@ import json
 import logging
 import webapp2
 
-from models import models
+from models.models import get_user
 from google.appengine.ext import db
 from authentication import auth
 from authentication.gaesessions import get_current_session
@@ -31,6 +31,10 @@ JINJA_ENV = jinja2.Environment(
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
+    	session = get_current_session()
+        if not session.has_key('net_id'):
+            auth.require_login(self)
+        user = get_user(session['net_id'], True)    
         page = self.request.path
         if page == '/':
             page = 'main'
@@ -40,7 +44,9 @@ class MainHandler(webapp2.RequestHandler):
             page = page[:-5]
         logging.info(page)
         template = JINJA_ENV.get_template('/views/%s.html' % page)
-        self.response.out.write(template.render())
+        page_data = {}
+        page_data['net_id'] = user.net_id
+        self.response.out.write(template.render(page_data))
 
 class AddCourseHandler(webapp2.RequestHandler):
     def post(self):
@@ -51,7 +57,7 @@ class AddCourseHandler(webapp2.RequestHandler):
         #     return
 
         user = get_user(session['net_id'])
-        data = jason.loads(self.request.get('json'))
+        data = json.loads(self.request.get('json'))
         logging.info(data)
 
         course = data['course'].split()
@@ -59,7 +65,7 @@ class AddCourseHandler(webapp2.RequestHandler):
         course_entity = models.Course('WHERE code=:1',201310)
 
         coursetaken = CourseTaken(user = user.key(),
-                                  course = ,
+                                  course = None,
                                   term = models.Term('WHERE code=:1',201310))
 
         # coursetaken = CourseTaken(user = user.key(),
@@ -76,6 +82,6 @@ class AddCourseHandler(webapp2.RequestHandler):
         
 
 app = webapp2.WSGIApplication([
-    ('/.*', MainHandler)
+    ('/.*', MainHandler),
     ('/addcourse', AddCourseHandler)
 ], debug=True)
