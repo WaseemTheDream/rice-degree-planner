@@ -31,7 +31,7 @@ JINJA_ENV = jinja2.Environment(
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-    	session = get_current_session()
+        session = get_current_session()
         if not session.has_key('net_id'):
             auth.require_login(self)
         user = models.get_user(session['net_id'], True)    
@@ -46,59 +46,59 @@ class MainHandler(webapp2.RequestHandler):
         template = JINJA_ENV.get_template('/views/%s.html' % page)
         page_data = {}
         page_data['net_id'] = user.net_id
-    	page_data['terms'] = []	    
+        page_data['terms'] = []     
         terms = models.Term.gql('LIMIT 10')
         for term in terms:
-			thisTerm = {
-				'code': term.code,
-				'description':term.description
-			}        
-			courseTakens = models.CourseTaken.gql('WHERE user=:1 AND term=:2', user, term)
-			thisTerm['courses'] = []
-			for courseTaken in courseTakens:
-				thisTerm['courses'].append({
-					'name': courseTaken.course.subject.code + " " + courseTaken.course.number,
-					'term': courseTaken.term.code
-				})
-        	page_data['terms'].append(thisTerm)
+            thisTerm = {
+                'code': term.code,
+                'description':term.description
+            }        
+            courseTakens = models.CourseTaken.gql('WHERE user=:1 AND term=:2', user, term)
+            thisTerm['courses'] = []
+            for courseTaken in courseTakens:
+                thisTerm['courses'].append({
+                    'name': courseTaken.course.subject.code + " " + courseTaken.course.number,
+                    'term': courseTaken.term.code
+                })
+            page_data['terms'].append(thisTerm)
         
         self.response.out.write(template.render(page_data))
 
 class AddCourseHandler(webapp2.RequestHandler):
-	def post(self):
-		session = get_current_session()
-		if not session.has_key('net_id'):
-			return
-		user = models.get_user(session['net_id'])
+    def post(self):
+        session = get_current_session()
+        if not session.has_key('net_id'):
+            return
+        user = models.get_user(session['net_id'])
 
-		if not user:
-			data['error'] = "Invalid User"
-			self.response.out.write(json.dumps(data))
-			return
+        if not user:
+            data['error'] = "Invalid User"
+            self.response.out.write(json.dumps(data))
+            return
 
-		data = json.loads(self.request.get('json'))
-		logging.info(data)
+        data = json.loads(self.request.get('json'))
+        logging.info(data)
 
-		course = models.get_course(data['course'])
+        course = models.get_course(data['course'])
 
-		if not course:
-			data['error'] = "Invalid Course"
-			self.response.out.write(json.dumps(data))
-			return
+        if not course:
+            data['error'] = "Invalid Course"
+            self.response.out.write(json.dumps(data))
+            return
 
-		term = models.Term.gql('WHERE code=:1', str(data['term'])).get()
+        term = models.Term.gql('WHERE code=:1', str(data['term'])).get()
 
 
-		if not term:
-			data['error'] = "Invalid Term"
-			self.response.out.write(json.dumps(data))
-			return
+        if not term:
+            data['error'] = "Invalid Term"
+            self.response.out.write(json.dumps(data))
+            return
 
-		coursetaken = models.CourseTaken(user = user, course = course, term = term)
-		coursetaken.put()
-		data['id'] = str(coursetaken.key())
-		self.response.out.write(json.dumps(data))
-		
+        coursetaken = models.CourseTaken(user = user, course = course, term = term)
+        coursetaken.put()
+        data['id'] = str(coursetaken.key())
+        self.response.out.write(json.dumps(data))
+        
 app = webapp2.WSGIApplication([
     ('/addCourse', AddCourseHandler),
     ('/.*', MainHandler)
