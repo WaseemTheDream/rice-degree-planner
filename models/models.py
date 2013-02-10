@@ -137,10 +137,13 @@ class RequirementsFromCoursesRange(Requirement):
         return None
 
 def get_user(net_id, create=False):
-    user = User.gql('WHERE net_id=:1', net_id).get()
-    if not user and create:
-        user = User(net_id=net_id).put()
-    return user
+	user = User.gql('WHERE net_id=:1', net_id).get()
+	if not user:
+		if create:
+			user = User(net_id=net_id).put()
+		else:
+			return False
+	return user
 
 
 def get_department(name, create=False):

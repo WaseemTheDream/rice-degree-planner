@@ -61,6 +61,12 @@ class AddCourseHandler(webapp2.RequestHandler):
 		if not session.has_key('net_id'):
 			return
 		user = models.get_user(session['net_id'])
+		
+		if not user:
+			data['error'] = "Invalid User"
+			self.response.out.write(json.dumps(data))
+			return
+		
 		data = json.loads(self.request.get('json'))
 		logging.info(data)
 		
@@ -71,14 +77,15 @@ class AddCourseHandler(webapp2.RequestHandler):
 			self.response.out.write(json.dumps(data))
 			return
 		
-		term = models.Term.gql('WHERE code=:1', str(data['term']))
+		term = models.Term.gql('WHERE code=:1', str(data['term'])).get()
+		
 		
 		if not term:
 			data['error'] = "Invalid Term"
 			self.response.out.write(json.dumps(data))
 			return
 		
-		coursetaken = models.CourseTaken(user = user.key(), course = course, term = term)
-		#coursetaken.put()
-		#data['id'] = str(coursetaken.key())
+		coursetaken = models.CourseTaken(user = user, course = course, term = term)
+		coursetaken.put()
+		data['id'] = str(coursetaken.key())
 		self.response.out.write(json.dumps(data))
