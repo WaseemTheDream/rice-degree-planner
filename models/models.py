@@ -62,38 +62,30 @@ class Requirement(polymodel.PolyModel):
 
 
 class CoursesRequirement(Requirement):
-    _options = db.ListProperty(db.Key)
-    _num_required = db.IntegerProperty(required=True)
+    options = db.ListProperty(db.Key)
+    num_required = db.IntegerProperty(required=True)
 
-    def __init__(self, name, options, num_required):
+    def load_courses(self, options):
         """
-        Constructor.
-
-        Args:
-            name {String}: the name of the requirement
-            options {List<Course>}: list of options
-            num_required {Integer}: number of courses required
+        options {List<Course>}: list of options
         """
-        super(CoursesRequirement, self).__init__(name=name, _num_required=num_required)
-        assert(num_required <= len(options))
-        self._options = []
         for course in options:
-            self._options.append(course.key())
+            self.options.append(course.key())
 
     def progress(self, courses_taken):
         # Load up the courses and get their credit values
         credits_list = []
-        options = [Course.get(key) for key in self._options]
+        options = [Course.get(key) for key in self.options]
         for course in options:
             credits_list.append(course.credit_hours)
         credits_list.sort()
         print credits_list
-        min_credits_required = sum(credits_list[:self._num_required])
-        max_credits_required = sum(credits_list[-self._num_required:])
+        min_credits_required = sum(credits_list[:self.num_required])
+        max_credits_required = sum(credits_list[-self.num_required:])
         
         courses_matching = []       # Courses taken fulfill this requirement
         for course_taken in courses_taken:
-            if course_taken.key() in self._options:
+            if course_taken.key() in self.options:
                 courses_matching.append(course_taken)
         credits_taken = sum([course.credit_hours for course in courses_matching])
         return {
@@ -105,46 +97,29 @@ class CoursesRequirement(Requirement):
         }
 
 class CourseRangeRequirement(Requirement):
-    _subject_options = db.ListProperty(db.Key)
-    _num_required = db.IntegerProperty(required=True)
-    _lower_range = db.IntegerProperty(required=True)
-    _upper_range = db.IntegerProperty(required=True)
-
-    def __init__(
-        self, 
-        name, 
-        subject_options, 
-        num_required, 
-        lower_range, 
-        upper_range):
+    subject_options = db.ListProperty(db.Key)
+    num_required = db.IntegerProperty(required=True)
+    lower_range = db.IntegerProperty(required=True)
+    upper_rage = db.IntegerProperty(required=True)
+        
+    def load_subjects(self, subject_options):
         """
-        Constructor.
-
-        Args:
-            name {String}: the name of the requirement
-            subject_options {List<Subject>}: list of possible subject_options
-            num_required {Integer}: the number of courses you have to take
-            lower_range {Integer}: the lower range of the requirement e.g. 150
-            upper_range {Integer}: the upper range of the requirement e.g. 300
+        subject_options {List<Subject>}: list of possible subject_options
         """
-        super(CourseRangeRequirement, self).__init__(
-            name=name,
-            _num_required=num_required,
-            _lower_range=lower_range,
-            _upper_range=upper_range)
-        self._subject_options = []
         for subject in subject_options:
-            self._subject_options.append(subject.key())
+            self.subject_options.append(subject.key())
 
     def progress(self, courses_taken):
         # Load up the courses and get their credit values
         credits_list = []
-        min_credits_required = 3 * self._num_required
-        max_credits_required = 4 * self._num_required
+        min_credits_required = 3 * self.num_required
+        max_credits_required = 4 * self.num_required
         courses_matching = []       # Courses taken that fulfill this requirement
         for course in courses_taken:
             number = try_parse_int(course.number, 0)
-            if self._lower_range <= number and number <= self._upper_range:
+            if course.subject not in self.subject_options:
+                continue
+            if self.lower_range <= number and number <= self.upper_rage:
                 courses_matching.append(course)
         credits_taken = sum([course.credit_hours for course in courses_matching])
         return {

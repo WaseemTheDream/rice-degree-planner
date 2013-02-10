@@ -25,16 +25,16 @@ def comp_sci_math_and_science_group():
     assert (None not in calculus)
     calculus_requirement = models.CoursesRequirement(
         name='Introductory calculus',
-        options=calculus,
         num_required=2)
+    calculus_requirement.load_courses(calculus)
     calculus_requirement.put()
 
     advanced_calculus = [models.get_course(course) for course in ['MATH 211', 'MATH 212', 'MATH 221', 'MATH 222']]
     assert (None not in advanced_calculus)
     advanced_calculus_requirement = models.CoursesRequirement(
         name='Advanced calculus',
-        options=advanced_calculus,
         num_required=1)
+    advanced_calculus_requirement.load_courses(advanced_calculus)
     advanced_calculus_requirement.put()
 
     math_and_science_group = models.RequirementGroup(name='Math and Science')
@@ -52,16 +52,16 @@ def comp_sci_core_group():
     assert (None not in intro)
     intro_requirement = models.CoursesRequirement(
         name='Introductory CS',
-        options=intro,
         num_required=1)
+    intro_requirement.load_courses(intro)
     intro_requirement.put()
 
     algorithms = [models.get_course('COMP 182')]
     assert (None not in algorithms)
     algorithms_requirement = models.CoursesRequirement(
         name='Algorithms',
-        options=algorithms,
         num_required=1)
+    algorithms_requirement.load_courses(algorithms)
     algorithms_requirement.put()
 
     core_group = models.RequirementGroup(name='CS Core')
