@@ -128,7 +128,7 @@ class RequirementsFromCoursesRange(Requirement):
             lower_range {Integer}: the lower range of the requirement e.g. 150
             upper_range {Integer}: the upper range of the requirement e.g. 300
         """
-        super(RequirementsFromCoursesRange, this).__init__(
+        super(RequirementsFromCoursesRange, self).__init__(
             name=name,
             _num_required=num_required,
             _lower_range=lower_range,
