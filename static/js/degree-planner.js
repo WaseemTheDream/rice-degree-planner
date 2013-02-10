@@ -16,7 +16,13 @@ function openAddClassPopup(){
 		select:function(event, ui){
 			$("#class_id").val(ui.item.class_id);
 		}
-	});
+	}).keypress(function(event) {
+		if ( event.which == 13 ) {
+			submitAddClass();
+		}else{
+			$("#class_id").val("");
+		}
+   });
 }
 
 function submitAddClass(){
