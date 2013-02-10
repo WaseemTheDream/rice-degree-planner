@@ -131,7 +131,7 @@
 			<h2>{{ term.description }}</h2>
 			<div class="classes">
 				{% for course in term.courses %}
-				<div class="class" data-course="XYZ">
+				<div class="class" data-course-id="{{ course.id }}">
 					<span class="name">{{ course.name }}</span>
 					<span class="delete">X</span>
 					<div class="group-icons">

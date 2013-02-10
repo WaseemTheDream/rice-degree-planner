@@ -40,7 +40,7 @@ function submitAddClass(course, term){
 		$("#search-container").effect("shake", { times:2, distance:5 }, 500);
 	}else{
 		data = {'term': term, 'course': course};
-		$.post("/addcourse", {'json': JSON.stringify(data)});
+		$.post("/addCourse", {'json': JSON.stringify(data)});
 		$.fancybox.close();
 	}
 }
@@ -58,7 +58,8 @@ function submitEditUser(){
 }
 
 function deleteClass(x){
-	alert("I should be telling the server to delete the taking of \""+x.data("course")+"\" class");
+	data = {'id':x.data('courseId')}
+	$.post("/deleteCourse", {'json': JSON.stringify(data)});
 	x.fadeOut();
 }
 

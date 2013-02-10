@@ -64,7 +64,8 @@ class MainHandler(webapp2.RequestHandler):
             for courseTaken in courseTakens:
                 thisTerm['courses'].append({
                     'name': courseTaken.course.subject.code + " " + courseTaken.course.number,
-                    'term': courseTaken.term.code
+                    'term': courseTaken.term.code,
+                    'id' : courseTaken.key()
                 })
             page_data['terms'].append(thisTerm)
         
@@ -147,4 +148,3 @@ class DeleteCourseHandler(webapp2.RequestHandler):
 
         course_taken.delete()
         self.response.out.write('Deleted')
-        
