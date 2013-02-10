@@ -47,15 +47,13 @@ class MainHandler(webapp2.RequestHandler):
         page_data = {}
         page_data['net_id'] = user.net_id
         page_data['terms'] = []
-        requiredTerm = models.Term.gql('WHERE code=:1', '201310').get()
+        requiredTerm = models.Term.gql('WHERE code=:1', '201320').get()
         #if requiredTerm.key() not in user.terms:
         #    user.terms.append(requiredTerm.key())
-        #    user.put()
-        for termKey in user.terms:
-       	    term = models.Term.get(termKey)
-			
-			
-			
+        #    user.put()        
+        
+        sorted_terms = sorted(models.Term.get(user.terms), key=lambda t:t.code)
+        for term in sorted_terms:
             thisTerm = {
                 'code': term.code,
                 'description':term.description
