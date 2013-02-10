@@ -134,7 +134,11 @@ class RequirementsFromCoursesRange(Requirement):
             _num_required=num_required,
             _lower_range=lower_range,
             _upper_range=upper_range)
-        return None
+        self._subject_options = []
+        for subject in subject_options:
+            self._subject_options.append(subject.key())
+
+    
 
 def get_user(net_id, create=False):
 	user = User.gql('WHERE net_id=:1', net_id).get()
