@@ -55,35 +55,56 @@ class Requirement(polymodel.PolyModel):
             courses_taken {List<Course>}: list of courses taken
 
         Returns:
+            A dictionary with the following key value pairs
             max_credits_required: maximum number of total credits required to fulfill
             min_credits_required: minimum number of total credits required to fulfill
             credits_taken: number of credits taken towards degree
-            courses_taken: courses taken that fulfill requirements
+            courses_matching: courses taken that fulfill requirements
         """
-        raise NotImplementedError('Abstract method')
+        raise NotImplementedError('Abstract function')
 
 
 class RequirementFromCourses(Requirement):
     _options = db.ListProperty(db.Key)
     _num_required = db.IntegerProperty(required=True)
 
-    def __init__(self, num_required, options):
+    def __init__(self, name, options, num_required):
         """
         Constructor.
 
         Args:
-            num_required {Integer}: number of courses required
+            name {String}: the name of the requirement
             options {List<Course>}: list of options
+            num_required {Integer}: number of courses required
         """
+        super(RequirementFromCourses, self).__init__(name=name, _num_required=num_required)
         assert(num_required < len(options))
-        self._num_required = num_required
+        self._options = []
         for course in options:
             self._options.append(course.key())
 
-    def progess(self, courses_taken):
-        credit_list = []
-        return None
-
+    def progress(self, courses_taken):
+        # Load up the courses and get their credit values
+        credits_list = []
+        options = [Course.get(key) for key in self._options]
+        for course in options:
+            credits_list.append(course.credit_hours)
+        credits_list.sort()
+        print credits_list
+        min_credits_required = sum(credits_list[:self._num_required])
+        max_credits_required = sum(credits_list[-self._num_required:])
+        
+        courses_matching = []       # Courses taken fulfill this requirement
+        for course_taken in courses_taken:
+            if course_taken.key() in self._options:
+                courses_matching.append(course_taken)
+        credits_taken = sum([course.credit_hours for course in courses_matching])
+        return {
+            'max_credits_required': max_credits_required,
+            'min_credits_required': min_credits_required,
+            'credits_taken': credits_taken,
+            'courses_matching': courses_matching
+        }
 
 def get_user(net_id, create=False):
     user = User.gql('WHERE net_id=:1', net_id).get()
@@ -106,3 +127,16 @@ def get_subject(code, create=False):
         subject = Subject(code=code)
         subject.put()
     return subject
+
+def get_course(name):
+    """
+    Returns the course specified with the name.
+
+    Args:
+        name {String}: e.g. COMP 182
+    """
+    subject_code, course_number = tuple(name.split(' '))
+    subject = Subject.gql('WHERE code=:1', subject_code).get()
+    course = Course.gql(
+            'WHERE subject=:1 AND number=:2', subject, course_number).get()
+    return course
