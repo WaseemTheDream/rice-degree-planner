@@ -75,7 +75,7 @@ class CoursesRequirement(Requirement):
             num_required {Integer}: number of courses required
         """
         super(CoursesRequirement, self).__init__(name=name, _num_required=num_required)
-        assert(num_required < len(options))
+        assert(num_required <= len(options))
         self._options = []
         for course in options:
             self._options.append(course.key())
@@ -175,7 +175,7 @@ class RequirementGroup(db.Model):
             credits_taken: the number of relevant credits taken
             overall_progress: list of progress objects for each requirement of this group
         """
-        requirements = [model.Requirement.get(req) for req in self.requirements]
+        requirements = [Requirement.get(req) for req in self.requirements]
         overall_progress = [req.progress(courses_taken) for req in requirements]
         credits_taken = sum([prog['credits_taken'] for prog in overall_progress])
         min_credits_required = sum([prog['min_credits_required'] for prog in overall_progress])
@@ -205,7 +205,7 @@ class DegreeRequirement(db.Model):
             name: the name of the degree
             progress_summaries {List<progress_summary>}: returns list of progress summaries
         """
-        groups = [model.RequirementGroup.get(grp) for grp in self.requirement_groups]
+        groups = [RequirementGroup.get(grp) for grp in self.requirement_groups]
         summaries = [grp.progress_summary(courses_taken) for grp in groups]
         return {
             'name': self.name,

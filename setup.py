@@ -78,6 +78,7 @@ def comp_sci_major():
     for grp in [math_and_science_group, core_group]:
         major_requirement.requirement_groups.append(grp.key())
     major_requirement.put()
+    return major_requirement
 
 if __name__ == '__main__':
     main()
