@@ -71,7 +71,7 @@
 				<div class="satified-by">
 					<ul>
 						{% for class in group.courses_matching %}
-						<li>Blah</li>
+						<li>{{class.subject.code}} {{ class.number }}</li>
 						{% endfor %}
 					</ul>
 				</div>
