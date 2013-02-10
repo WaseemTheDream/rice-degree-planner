@@ -21,7 +21,7 @@ import json
 import logging
 import webapp2
 
-from models.models import get_user
+from models import models
 from google.appengine.ext import db
 from authentication import auth
 from authentication.gaesessions import get_current_session
@@ -34,7 +34,7 @@ class MainHandler(webapp2.RequestHandler):
     	session = get_current_session()
         if not session.has_key('net_id'):
             auth.require_login(self)
-        user = get_user(session['net_id'], True)    
+        user = models.get_user(session['net_id'], True)    
         page = self.request.path
         if page == '/':
             page = 'main'
@@ -46,6 +46,13 @@ class MainHandler(webapp2.RequestHandler):
         template = JINJA_ENV.get_template('/views/%s.html' % page)
         page_data = {}
         page_data['net_id'] = user.net_id
+    	page_data['terms'] = []	    
+        terms = models.Term.gql('LIMIT 10')
+        for term in terms:
+        	page_data['terms'].append({   ## if terms_data is an array, it is integer-indexed. Therefore list['a string'] is invalid
+        			'id': term.key(),
+        			'description' : term.description
+        		})
         self.response.out.write(template.render(page_data))
 
 class AddCourseHandler(webapp2.RequestHandler):

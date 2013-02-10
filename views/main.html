@@ -176,15 +176,13 @@
 				</div>
 			</div>
 		</div>
-		<div class="semester">
-			<h2>Fall 2011</h2>
+		{% for term in terms %}
+		<div class="semester" data-term="{{ term.id }}">
+			<h2>{{ term.description }}</h2>
 			<div class="classes">
 			</div>
 		</div>
-		<div class="semester">
-			<h2>Spring 2012</h2>
-			<div class="classes">
-		</div>
+		{% endfor %}
 	</div>
 </div>
 </body>
