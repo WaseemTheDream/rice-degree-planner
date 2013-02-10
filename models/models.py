@@ -238,6 +238,20 @@ def get_course(name):
             'WHERE subject=:1 AND number=:2', subject, course_number).get()
     return course
 
+def get_courses_above(name,number):
+	"""
+	Returns list of courses for a specified subject above a specified level
+	
+	Args:
+		name {String}: e.g. COMP
+	"""
+	subject = Subject.gql('WHERE code=:1',name).get()
+	courses = Course.gql(
+			'Where subject=:1 AND number>=:2', subject, course_number).run(batch_size=200)
+	for course in courses:
+		return_courses.append(course)
+	return return_courses
+	
 def try_parse_int(string, val=None):
     """
     Tries to parse the given string, if it fails returns val.
