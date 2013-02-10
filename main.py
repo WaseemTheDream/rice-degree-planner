@@ -67,22 +67,21 @@ class AddCourseHandler(webapp2.RequestHandler):
         data = json.loads(self.request.get('json'))
         logging.info(data)
 
-        course = data['course'].split()
-        subject_entity = models.Subject('WHERE code=:1',)
-        course_entity = models.Course('WHERE code=:1',201310)
-
+        # {"term":"{term_id}","course":"COMP 140"}
         coursetaken = CourseTaken(user = user.key(),
-                                  course = None,
-                                  term = models.Term('WHERE code=:1',201310))
+                                  course = models.get_course(data['course']),
+                                  term = models.Term('WHERE code=:1', data['term']))
 
-        # coursetaken = CourseTaken(user = user.key(),
-        #                           course = data['course'],
-        #                           term = data['term'])
         coursetaken.put()
-        data['id'] = str(sticky.key())
+
+        # Logging
+        data['id'] = str(coursetaken.key())
         self.response.out.write(json.dumps(data))
 
-        # {"term":"{term_id}","course":"COMP 140"}
+    def get(self):
+        pass
+
+        
 
         
 
