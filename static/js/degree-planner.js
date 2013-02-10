@@ -17,7 +17,7 @@ function openAddClassPopup(){
 			$("#class_id").val(ui.item.class_id);
 		}
 	}).keypress(function(event) {
-		if ( event.which == 13 ) {
+		if ( event.which == 13 && $("#class_id").val()) {
 			submitAddClass();
 		}else{
 			$("#class_id").val("");
