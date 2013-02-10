@@ -2,6 +2,8 @@
 Test code for RequirementsFromCoursesRange.
 
 Uses CS Upperlevel requirements to check for that
+
+
 """
 
 from models import models
@@ -9,7 +11,7 @@ from models import models
 def main():
     subject = models.Subject.gql('WHERE code=:1', 'COMP').get()
 
-    upper_level = models.RequirementsFromCoursesRange(
+    upper_level = models.CourseRangeRequirement(
         name='Upper-Level Requirements',
         subject_options=[subject],
         num_required=2,

@@ -66,7 +66,7 @@ class Requirement(polymodel.PolyModel):
         raise NotImplementedError('Abstract function')
 
 
-class RequirementsFromCourses(Requirement):
+class CoursesRequirement(Requirement):
     _options = db.ListProperty(db.Key)
     _num_required = db.IntegerProperty(required=True)
 
@@ -79,7 +79,7 @@ class RequirementsFromCourses(Requirement):
             options {List<Course>}: list of options
             num_required {Integer}: number of courses required
         """
-        super(RequirementsFromCourses, self).__init__(name=name, _num_required=num_required)
+        super(CoursesRequirement, self).__init__(name=name, _num_required=num_required)
         assert(num_required < len(options))
         self._options = []
         for course in options:
@@ -108,7 +108,7 @@ class RequirementsFromCourses(Requirement):
             'courses_matching': courses_matching
         }
 
-class RequirementsFromCoursesRange(Requirement):
+class CourseRangeRequirement(Requirement):
     _subject_options = db.ListProperty(db.Key)
     _num_required = db.IntegerProperty(required=True)
     _lower_range = db.IntegerProperty(required=True)
@@ -159,39 +159,39 @@ class RequirementsFromCoursesRange(Requirement):
         }
 
 
-class GroupRequirement(Requirement):
-    """
-    Constructor.
-
-    Args:
-        name {String}: the name of the requirement
-        options {List<Course>}: list of options
-        reqs {reference to Requirment entities}: the requirement that compose the group
-        deg_req {reference to a single DegreeRequirement entity}: the degree this group is associated with
-    """
-    # refers to a bunch of Requirement objects
-    requirement_children = db.ListProperty(db.Key)
-
-    def __init__(self, name, reqs, deg_req):
-        super(GroupRequirement, self).__init__(name=name, 
-                                               requirement_children=reqs)
+class RequirementGroup(db.Model):
+    name = db.StringProperty(required=True)
+    requirements = db.ListProperty(db.Key)
 
     def progress_summary(self, courses_taken):
-        min_required = -10000000
-        max_required = 10000000
-        requirements = []
-        for i in requirement_children:
-            requirements.append()
+        """
+        Returns the summary of progress made within the requirement group.
 
-    pass
+        Args:
+            courses_taken {List<Course>}: list of courses taken by user.
 
-class DegreeRequirement(Requirement):
+        Returns:
+            A dictionary with the following key value pairs.
+            min_credits_required: the minimum credits required to fulfill requirements
+            max_credits_required: the maximum credits required to fulfill requirements
+            credits_taken: the number of relevant credits taken
+            overall_progress: list of progress objects for each requirement of this group
+        """
+        requirements = [model.Requirement.get(req) for req in self.requirements]
+        overall_progress = [req.progress(courses_taken) for req in requirements]
+        credits_taken = sum([prog['credits_taken'] for prog in overall_progress])
+        min_credits_required = sum([prog['min_credits_required'] for prog in overall_progress])
+        max_credits_required = sum([prog['max_credits_required'] for prog in overall_progress])
+        return {
+            'min_credits_required': min_credits_required,
+            'max_credits_required': max_credits_required,
+            'credits_taken': credits_taken,
+            'overall_progress': overall_progress
+        }
+
+class DegreeRequirement(db.Model):
+    name = db.StringProperty(required=True)
     requirement_groups = db.ListProperty(db.Key)
-
-
-    pass
-
-
 
 def get_user(net_id, create=False):
 	user = User.gql('WHERE net_id=:1', net_id).get()

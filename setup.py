@@ -22,14 +22,14 @@ def main():
 def add_comp_sci_major():
     calculus = [models.get_course(course) for course in ['MATH 101', 'MATH 102']]
     assert (None not in calculus)
-    culculus_requirement = models.RequirementsFromCourses(
+    culculus_requirement = models.CoursesRequirement(
         name='Introductory calculus',
         options=calculus,
         num_required=2)
 
     advanced_calculus = [models.get_course(course) for course in ['MATH 211', 'MATH 212', 'MATH 221', 'MATH 222']]
     assert (None not in advanced_calculus)
-    advanced_calculus_requirement = models.RequirementsFromCourses(
+    advanced_calculus_requirement = models.CoursesRequirement(
         name='Advanced calculus',
         options=advanced_calculus,
         num_required=1)
