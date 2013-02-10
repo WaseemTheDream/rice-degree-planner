@@ -102,6 +102,7 @@ class CoursesRequirement(Requirement):
                 courses_matching.append(course_taken)
         credits_taken = sum([course.credit_hours for course in courses_matching])
         return {
+            'name': self.name
             'max_credits_required': max_credits_required,
             'min_credits_required': min_credits_required,
             'credits_taken': credits_taken,
@@ -152,6 +153,7 @@ class CourseRangeRequirement(Requirement):
                 courses_matching.append(course)
         credits_taken = sum([course.credit_hours for course in courses_matching])
         return {
+            'name': self.name
             'max_credits_required': max_credits_required,
             'min_credits_required': min_credits_required,
             'credits_taken': credits_taken,
@@ -172,6 +174,7 @@ class RequirementGroup(db.Model):
 
         Returns:
             A dictionary with the following key value pairs.
+            name {String}: the name of the requirement
             min_credits_required: the minimum credits required to fulfill requirements
             max_credits_required: the maximum credits required to fulfill requirements
             credits_taken: the number of relevant credits taken
@@ -183,6 +186,7 @@ class RequirementGroup(db.Model):
         min_credits_required = sum([prog['min_credits_required'] for prog in overall_progress])
         max_credits_required = sum([prog['max_credits_required'] for prog in overall_progress])
         return {
+            'name': self.name
             'min_credits_required': min_credits_required,
             'max_credits_required': max_credits_required,
             'credits_taken': credits_taken,
@@ -192,6 +196,27 @@ class RequirementGroup(db.Model):
 class DegreeRequirement(db.Model):
     name = db.StringProperty(required=True)
     requirement_groups = db.ListProperty(db.Key)
+
+    def progress_summaries(self, courses_taken):
+        """
+        Returns a list of progress summaries for each requirement group in the 
+        degree requirement.
+
+        Args:
+            course_taken {List<Course>}: list of courses taken by the user.
+
+        Returns:
+            A dictionary with the following key value pairs
+            name: the name of the degree
+            progress_summaries {List<progress_summary>}: returns list of progress summaries
+        """
+        groups = [model.RequirementGroup.get(grp) for grp in self.requirement_groups]
+        summaries = [grp.progress_summary(courses_taken) for grp in groups]
+        return {
+            'name': self.name,
+            'progress_summaries': summaries
+        }
+
 
 def get_user(net_id, create=False):
 	user = User.gql('WHERE net_id=:1', net_id).get()
