@@ -1,19 +1,2 @@
 *.pyc
 .DS_Store
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-*.pyc
-
-*.pyc
-
-authentication/__init__.pyc
-
-authentication/gaesessions.pyc
-
-main.pyc
->>>>>>> nothing
-
-main.pyc
-=======
->>>>>>> Lots of UI changes
