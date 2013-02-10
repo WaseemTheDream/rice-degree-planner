@@ -98,6 +98,8 @@ class CoursesRequirement(Requirement):
 
 class CourseRangeRequirement(Requirement):
     subject_options = db.ListProperty(db.Key)
+    excluded_courses = db.ListProperty(db.Key)      # Courses that can't be used towards progress
+    any_subject = db.BooleanProperty(default=False)  # If true, doesn't check for subject_options matching
     num_required = db.IntegerProperty(required=True)
     lower_range = db.IntegerProperty(required=True)
     upper_rage = db.IntegerProperty(required=True)
@@ -109,6 +111,13 @@ class CourseRangeRequirement(Requirement):
         for subject in subject_options:
             self.subject_options.append(subject.key())
 
+    def load_excluded_courses(self, excluded_courses):
+        """
+        excluded_courses {List<Course>}: Courses that can't be used towards progress
+        """
+        for course in excluded_courses:
+            self.excluded_courses.append(course.key())
+
     def progress(self, courses_taken):
         # Load up the courses and get their credit values
         credits_list = []
@@ -117,7 +126,9 @@ class CourseRangeRequirement(Requirement):
         courses_matching = []       # Courses taken that fulfill this requirement
         for course in courses_taken:
             number = try_parse_int(course.number, 0)
-            if course.subject not in self.subject_options:
+            if course.subject not in self.subject_options and not self.any_subject:
+                continue
+            if course.key() in self.excluded_courses:
                 continue
             if self.lower_range <= number and number <= self.upper_rage:
                 courses_matching.append(course)
