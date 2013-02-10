@@ -70,9 +70,14 @@ class MainHandler(webapp2.RequestHandler):
             page_data['terms'].append(thisTerm)
         
         degree = models.DegreeRequirement.gql('WHERE name=:1', 'Computer Science').get()
-        courses_taken = models.CourseTaken.gql('WHERE user=:1', user)
-        page_data['progress'] = degree.progress_summaries(courses_taken)
-
+        courses_takens = models.CourseTaken.gql('WHERE user=:1', user)
+        
+        courses = []
+        for courses_taken in courses_takens:
+        	courses.append(courses_taken.course)
+        
+        page_data['progress'] = degree.progress_summaries(courses)
+        self.response.out.write(page_data['progress'])
         self.response.out.write(template.render(page_data))
 
 class AddCourseHandler(webapp2.RequestHandler):

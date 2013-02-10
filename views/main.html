@@ -66,7 +66,7 @@
 			<div class="group">
 				<h3>{{ group.name }}</h3>
 				<div class="progressbar">
-					<span class="progress group5" style="width:{{ group.credits_taken / group.min_credits_required }}%"></span>
+					<span class="progress group5" style="width:{{ group.credits_taken / group.min_credits_required * 100 }}%"></span>
 				</div>
 				<div class="satified-by">
 					<ul>
