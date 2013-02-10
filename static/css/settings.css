@@ -24,5 +24,15 @@ body{
 	padding:6px 24px;
 	text-decoration:none;
 	text-shadow:1px 1px 0px #7cacde;
+}
 
+.fields td{
+	color: #bec0c2;
+	text-shadow:1px 0px 0px #002469;
+}
+
+.link{
+	color: #6996d3;
+	text-decoration:underline;
+	font-size: 11px;
 }
